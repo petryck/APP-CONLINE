@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>CONLINE PWA</title>
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="fonts/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="_manifest.json">
+<meta id="theme-check" name="theme-color" content="#FFFFFF">
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png"></head>
+<body class="theme-light">
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+<style>
+    #footer-bar .circle-nav-2::before {
+        background-image: linear-gradient(to bottom,#dc3545,#dc3545e0)!important;
+    }
+    #footer-bar .circle-nav-2::after {
+        background-image: linear-gradient(to bottom,#dc3545,#dc3545e0)!important;
+    }
+ 
+</style>
+
+<div id="page">
+
+<div id="footer-bar" class="footer-bar-1 footer-bar-detached menubar">
+<a href="#" onclick="OpenPage('comercial.html')" class="btn-propostas"><i class="bi bi-wallet2"></i><span>Comercial</span></a>
+<a href="#" onclick="OpenPage('reservas.html')" ><i class="bi bi-graph-up"></i><span>Reservas</span></a>
+<a href="#" onclick="OpenPage('home.html')" class="circle-nav-2 "><i class="bi bi-house-fill"></i><span>Inicio</span></a>
+<a href="#" onclick="OpenPage('orcamentos.html')"><i class="bi bi-receipt"></i><span>Orçamentos</span></a>
+<a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-sidebar"><i class="bi bi-three-dots"></i><span>Menu</span></a>
+</div>
+
+<div class="page-content footer-clear">
+
+
+
+</div>
+
+
+
+
+<div id="menu-sidebar" data-menu-active="nav-welcome" data-menu-load="menu-sidebar.html" class="offcanvas offcanvas-start offcanvas-detached rounded-m">
+</div>
+
+<div id="menu-highlights" data-menu-load="menu-highlights.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+</div>
+
+<div id="menu-notifications" data-menu-load="menu-notifications.html" class="offcanvas offcanvas-top offcanvas-detached rounded-m">
+</div>
+
+<div id="menu-card-more" data-menu-load="menu-card-settings.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+</div>
+
+<div id="menu-transfer" data-menu-load="menu-transfer.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+</div>
+
+<div id="menu-friends-transfer" data-menu-load="menu-friends-transfer.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+</div>
+
+<div id="menu-request" data-menu-load="menu-request.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+</div>
+
+<div id="menu-exchange" data-menu-load="menu-exchange.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+</div>
+<div class="offcanvas offcanvas-bottom rounded-m offcanvas-detached" id="menu-install-pwa-ios">
+<div class="content">
+<img src="app/icons/icon-128x128.png" alt="img" width="80" class="rounded-m mx-auto my-4">
+<h1 class="text-center">Instalar Sirius PWA</h1>
+<p class="boxed-text-xl">
+    Instale o Sirius PWA em sua tela inicial e acesse-o como um aplicativo comum. Abra o menu do Safari e toque em "Adicionar à tela inicial".
+</p>
+<a href="#" class="pwa-dismiss close-menu color-theme text-uppercase font-900 opacity-50 font-11 text-center d-block mt-n2" data-bs-dismiss="offcanvas">Mais tarde</a>
+</div>
+</div>
+<div class="offcanvas offcanvas-bottom rounded-m offcanvas-detached" id="menu-install-pwa-android">
+<div class="content">
+<img src="app/icons/icon-128x128.png" alt="img" width="80" class="rounded-m mx-auto my-4">
+<h1 class="text-center">Instalar ConLine PWA</h1>
+<p class="boxed-text-l">
+
+    Instale o Sirius PWA na sua tela inicial para desfrutar de uma experiência única e nativa.
+</p>
+<a href="#" class="pwa-install btn btn-m rounded-s text-uppercase font-900 gradient-highlight shadow-bg shadow-bg-s btn-full">Adicionar a Tela Incial</a><br>
+<a href="#" data-bs-dismiss="offcanvas" class="pwa-dismiss close-menu color-theme text-uppercase font-900 opacity-60 font-11 text-center d-block mt-n1">Mais tarde</a>
+</div>
+</div>
+</div>
+
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="scripts/controller.js"></script>
+</body>
