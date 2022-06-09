@@ -1,4 +1,4 @@
-OpenPage('home-geral.html')
+OpenPage('metas-geral.html')
 
 $(document).on('click', '.menubar > a', function(e){
 
