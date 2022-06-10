@@ -5,6 +5,7 @@ var CACHE_NAME = APP_NAME + '-' + APP_VER;
 var APP_ROOT = '/';
 var REQUIRED_FILES = [
 	// HTML Files
+    APP_ROOT+'pages/comercial.html',
 	APP_ROOT+'home.html',
 	// Styles
 	APP_ROOT+'styles/bootstrap.css',

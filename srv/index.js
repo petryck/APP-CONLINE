@@ -28,7 +28,7 @@ app.get('/home', (req, res) => {
 
 app.get('/page', (req, res) => {
     var page = req.query.page;
-    res.sendFile(path.join(__dirname, '/pages/'+page))
+    res.sendFile(path.join(__dirname, '../public/pages/'+page))
 })
 
 

@@ -20,8 +20,15 @@ $(document).on('click', '.listprocessos > a', function(e){
 
 
 function OpenPage(page){
+var status_geral = localStorage.getItem('status_geral');
 
-    if(!page){
+console.log(localStorage.getItem('status_geral'))
+
+    if(!page || status_geral == '0'){
+        document['getElementsByClassName']('offline-message')[0]['classList']['add']('offline-message-active');
+                    setTimeout(function() {
+                        document['getElementsByClassName']('offline-message')[0]['classList']['remove']('offline-message-active')
+       }, 1500)
         return false;
     }
 

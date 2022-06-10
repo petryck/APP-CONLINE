@@ -1,3 +1,5 @@
+localStorage.setItem('status_geral', 1);
+
 setTimeout(function() {
     var _0xebf0x1 = document['getElementById']('preloader');
     if (_0xebf0x1) {
@@ -5,7 +7,7 @@ setTimeout(function() {
     }
 }, 150);
 document['addEventListener']('DOMContentLoaded', () => {
-    'use strict';
+
     let _0xebf0x2 = true;
     let _0xebf0x3 = true;
     var _0xebf0x4 = 'Sirius PWA';
@@ -551,6 +553,7 @@ document['addEventListener']('DOMContentLoaded', () => {
         }, 500);
         var _0xebf0x82 = document['querySelectorAll']('.offline-message');
         if (!_0xebf0x82['length']) {
+          
             const _0xebf0x83 = document['createElement']('p');
             const _0xebf0x84 = document['createElement']('p');
             _0xebf0x83['className'] = 'offline-message bg-red-dark shadow-bg shadow-bg-s color-white';
@@ -560,6 +563,8 @@ document['addEventListener']('DOMContentLoaded', () => {
             document['querySelectorAll']('#page')[0]['appendChild'](_0xebf0x83);
             document['querySelectorAll']('#page')[0]['appendChild'](_0xebf0x84)
         };
+
+        
 
         function _0xebf0x85() {
             var _0xebf0x86 = document['querySelectorAll']('a');
@@ -602,6 +607,8 @@ document['addEventListener']('DOMContentLoaded', () => {
             setTimeout(function() {
                 _0xebf0x8c['classList']['remove']('online-message-active')
             }, 2000);
+          
+           localStorage.setItem('status_geral', 1);
             console['info']('Connection: Online')
         }
 
@@ -612,6 +619,8 @@ document['addEventListener']('DOMContentLoaded', () => {
             setTimeout(function() {
                 _0xebf0x8b['classList']['remove']('offline-message-active')
             }, 2000);
+           
+            localStorage.setItem('status_geral', 0);
             console['info']('Connection: Offline')
         }
         var _0xebf0x8f = document['querySelectorAll']('.simulate-offline');
