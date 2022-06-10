@@ -8,11 +8,11 @@ document['addEventListener']('DOMContentLoaded', () => {
     'use strict';
     let _0xebf0x2 = true;
     let _0xebf0x3 = true;
-    var _0xebf0x4 = 'PayApp';
+    var _0xebf0x4 = 'Sirius PWA';
     var _0xebf0x5 = 1;
     var _0xebf0x6 = false;
-    var _0xebf0x7 = 'https://www.enableds.com/products/payapp/v13/';
-    var _0xebf0x8 = 'https://www.enableds.com/products/payapp/v13/_service-worker.js';
+    var _0xebf0x7 = '/';
+    var _0xebf0x8 = '/_service-worker.js';
 
     function _0xebf0x9() {
         var _0xebf0xa, _0xebf0xb, _0xebf0xc, _0xebf0xd, _0xebf0xe;
@@ -554,9 +554,9 @@ document['addEventListener']('DOMContentLoaded', () => {
             const _0xebf0x83 = document['createElement']('p');
             const _0xebf0x84 = document['createElement']('p');
             _0xebf0x83['className'] = 'offline-message bg-red-dark shadow-bg shadow-bg-s color-white';
-            _0xebf0x83['innerHTML'] = '<i class=\"bi bi-wifi-off pe-2\"></i> No internet connection detected';
+            _0xebf0x83['innerHTML'] = '<i class=\"bi bi-wifi-off pe-2\"></i> Nenhuma conexão com a Internet detectada';
             _0xebf0x84['className'] = 'online-message bg-green-dark shadow-bg shadow-bg-s color-white';
-            _0xebf0x84['innerHTML'] = '<i class=\"bi bi-wifi pe-2\"></i> You are back online.';
+            _0xebf0x84['innerHTML'] = '<i class=\"bi bi-wifi pe-2\"></i> Você está online novamente.';
             document['querySelectorAll']('#page')[0]['appendChild'](_0xebf0x83);
             document['querySelectorAll']('#page')[0]['appendChild'](_0xebf0x84)
         };
