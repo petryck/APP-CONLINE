@@ -4,7 +4,7 @@
 "name" : "Sirius PWA",
 "scope" : "http://localhost:6053/",
 "display" : "fullscreen",
-"start_url" : "home.html",
+"start_url" : "/",
 "short_name" : "Sirius PWA",
 "description" : "",
 "orientation" : "portrait",

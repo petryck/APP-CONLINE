@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-x: hidden;overflow-y: hidden;-webkit-overflow-scrolling: auto;">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <link rel="manifest" href="manifest.json">
+    <meta id="theme-check" name="theme-color" content="#FFFFFF">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png"></head>
+    <link rel="stylesheet" href="/styles/framework7-bundle.css">
+    <link rel="stylesheet" href="/styles/style_login.css">
+    <title>Sirius PWA</title>
+</head>
+<body  style="overflow-x: hidden;overflow-y: hidden;-webkit-overflow-scrolling: auto;">
+    <div id="app" class="framework7-root" style="overflow-x: hidden;overflow-y: hidden;-webkit-overflow-scrolling: auto;">
+        <div class="panel-backdrop"></div>
+       
+        <div class="view view-main view-init safe-areas" data-master-detail-breakpoint="800" data-url="/" style="overflow-x: hidden;overflow-y: hidden;-webkit-overflow-scrolling: auto;">
+          <div class="page page-current" style="overflow-x: hidden;overflow-y: hidden;-webkit-overflow-scrolling: auto;">
+            <div class="page-content account-area" style="margin-top: 43px;overflow-x: hidden;overflow-y: hidden;-webkit-overflow-scrolling: auto;">
+              <div class="container">
+                <div class="mensagem" style="display:none;margin-top:-23px; height: 40px;background-image: linear-gradient(to bottom,#dc3545,#dc3545e0)!important;">
+                    <center><h4 style="color: white !important;">Falha ao autenticar</h4></center>
+                </div>
+                <div class="view-logo text-center">
+                  <div class="logo-icon" style="    height: 75px;width: 236px;">
+                   <img src="/images/conline.png" alt="" style="width: 178px;">
+                  </div>
+                </div>
+                <div class="tabs">
+                  <div class="tab tab-active form-elements tabs">
+                    <form class="tab tab-active" id="tabA1">
+                      <div class="title-head text-align-center">
+                        <h2 class="title">SiriusMob</h2>
+                        <p>Seja bem vindo a aplicação sirius mobile, aqui você tem acessos as diversas informações. </p>
+                      </div>
+                      <div class="list">
+                        <ul class="row">
+                          <li class="item-content item-input col-100 item-input-with-value">
+                            <div class="item-media">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.7 11.717C16.6839 10.9476 17.4031 9.8904 17.7575 8.69275C18.1118 7.4951 18.0836 6.21672 17.6767 5.03588C17.2698 3.85505 16.5046 2.83062 15.4877 2.10545C14.4708 1.38027 13.253 0.990513 12.004 0.990513C10.755 0.990513 9.53719 1.38027 8.52031 2.10545C7.50342 2.83062 6.73819 3.85505 6.33131 5.03588C5.92443 6.21672 5.89619 7.4951 6.25053 8.69275C6.60487 9.8904 7.32413 10.9476 8.308 11.717C6.44917 12.4566 4.85467 13.7363 3.73027 15.391C2.60587 17.0457 2.00318 18.9994 2 21V22C2 22.2652 2.10536 22.5196 2.29289 22.7071C2.48043 22.8946 2.73478 23 3 23H21C21.2652 23 21.5196 22.8946 21.7071 22.7071C21.8946 22.5196 22 22.2652 22 22V21C21.9975 19.0003 21.3959 17.0473 20.273 15.3927C19.1501 13.7381 17.5573 12.4579 15.7 11.717ZM8 6.99999C8 6.20886 8.2346 5.4355 8.67412 4.77771C9.11365 4.11991 9.73836 3.60722 10.4693 3.30447C11.2002 3.00172 12.0044 2.92251 12.7804 3.07685C13.5563 3.23119 14.269 3.61215 14.8284 4.17156C15.3878 4.73097 15.7688 5.4437 15.9231 6.21963C16.0775 6.99555 15.9983 7.79982 15.6955 8.53072C15.3928 9.26163 14.8801 9.88634 14.2223 10.3259C13.5645 10.7654 12.7911 11 12 11C10.9391 11 9.92172 10.5786 9.17157 9.82842C8.42143 9.07827 8 8.06085 8 6.99999ZM4 21C4 18.8783 4.84285 16.8434 6.34315 15.3431C7.84344 13.8428 9.87827 13 12 13C14.1217 13 16.1566 13.8428 17.6569 15.3431C19.1571 16.8434 20 18.8783 20 21H4Z" fill="#779985"></path>
+                              </svg>
+                            </div>
+                            <div class="item-inner">
+                              <div class="item-input-wrap">
+                                <input type="email" id="username" placeholder="Email" class="form-control input-with-value">
+                              </div>
+                            </div>
+                          </li>
+                          <li class="item-content col-100 item-input">
+                            <div class="item-media">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 9.00002H18V7.00002C18 5.40872 17.3679 3.88259 16.2426 2.75737C15.1174 1.63216 13.5913 1.00002 12 1.00002C10.4087 1.00002 8.88258 1.63216 7.75736 2.75737C6.63214 3.88259 6 5.40872 6 7.00002V9.00002H4C3.73478 9.00002 3.48043 9.10537 3.29289 9.29291C3.10536 9.48044 3 9.7348 3 10V22C3 22.2652 3.10536 22.5196 3.29289 22.7071C3.48043 22.8947 3.73478 23 4 23H20C20.2652 23 20.5196 22.8947 20.7071 22.7071C20.8946 22.5196 21 22.2652 21 22V10C21 9.7348 20.8946 9.48044 20.7071 9.29291C20.5196 9.10537 20.2652 9.00002 20 9.00002ZM8 7.00002C8 5.93915 8.42143 4.92173 9.17157 4.17159C9.92172 3.42144 10.9391 3.00002 12 3.00002C13.0609 3.00002 14.0783 3.42144 14.8284 4.17159C15.5786 4.92173 16 5.93915 16 7.00002V9.00002H8V7.00002ZM19 21H5V11H19V21Z" fill="#779985"></path>
+                                <path d="M12 13C11.4067 13 10.8266 13.1759 10.3333 13.5056C9.83994 13.8352 9.45543 14.3038 9.22836 14.8519C9.0013 15.4001 8.94189 16.0033 9.05765 16.5853C9.1734 17.1672 9.45912 17.7018 9.87868 18.1213C10.2982 18.5409 10.8328 18.8266 11.4147 18.9424C11.9967 19.0581 12.5999 18.9987 13.1481 18.7716C13.6962 18.5446 14.1648 18.1601 14.4944 17.6667C14.8241 17.1734 15 16.5933 15 16C15 15.2044 14.6839 14.4413 14.1213 13.8787C13.5587 13.3161 12.7957 13 12 13ZM12 17C11.8022 17 11.6089 16.9414 11.4444 16.8315C11.28 16.7216 11.1518 16.5654 11.0761 16.3827C11.0004 16.2 10.9806 15.9989 11.0192 15.8049C11.0578 15.6109 11.153 15.4327 11.2929 15.2929C11.4327 15.153 11.6109 15.0578 11.8049 15.0192C11.9989 14.9806 12.2 15.0004 12.3827 15.0761C12.5654 15.1518 12.7216 15.28 12.8315 15.4444C12.9414 15.6089 13 15.8022 13 16C13 16.2652 12.8946 16.5196 12.7071 16.7071C12.5196 16.8946 12.2652 17 12 17Z" fill="#779985"></path>
+                              </svg>
+                            </div>
+                            <div class="item-inner">
+                              <div class="item-input-wrap">
+                                <input type="password" id="password" placeholder="Senha" class="form-control">
+                               
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="clearfix">
+                        <a id="btn_acessar" href="#" style="background-image: linear-gradient(to bottom,#dc3545,#dc3545e0)!important;" class="button-large button button-fill">ACESSAR</a>
+                      </div>
+                    
+                    
+                    </form>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+
+    
+
+    var button = document.getElementById("btn_acessar");
+    button.addEventListener("click", function(event) {
+        event.preventDefault()
+
+        var input_email = document.getElementById("username");
+        var input_senha = document.getElementById("password");
+      
+
+        if(input_email.value != '' && input_senha.value != ''){
+      
+            $.ajax({
+        type: 'GET',
+        url: '/login_senha',
+        data: {email:input_email.value, senha:input_senha.value},
+        success: function (data) {
+
+            if(data != 'error'){
+            
+                localStorage.setItem('info_usuario_sirius_os', JSON.stringify(data));
+                window.location.href = "/home";
+        
+            }else{
+                $('.mensagem').css('display', 'block')
+
+                setTimeout(() => {
+                    $('.mensagem').css('display', 'none')
+                }, 1000);
+            }
+            
+        }
+    })
+
+        }
+        
+    })
+        
+      </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+
+</body>
+</html>

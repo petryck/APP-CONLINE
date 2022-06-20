@@ -16,6 +16,12 @@ $(document).on('click', '.listprocessos > a', function(e){
     // OpenPage(page)
 })
 
+$(document).on('click', '.btn_sair', function(e){
+
+    window.location.href = "/login";
+    // OpenPage(page)
+})
+
 
 
 
