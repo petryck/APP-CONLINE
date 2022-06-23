@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="fonts/bootstrap-icons.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json?version=2">
 <meta id="theme-check" name="theme-color" content="#FFFFFF">
 <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png"></head>
 <body class="theme-light">
@@ -30,7 +30,7 @@
 <div id="footer-bar" class="footer-bar-1 footer-bar-detached menubar">
 <a href="#" onclick="OpenPage('comercial.html')" class="btn-propostas"><i class="bi bi-wallet2"></i><span>Comercial</span></a>
 <a href="#" onclick="OpenPage('reservas.html')" ><i class="bi bi-graph-up"></i><span>Reservas</span></a>
-<a href="#" onclick="OpenPage('metas-geral.html')" class="circle-nav-2 "><i class="bi bi-house-fill"></i><span>Inicio</span></a>
+<a href="#" onclick="OpenPage('metas-geral.html')" class="circle-nav-2 btn_inicio"><i class="bi bi-house-fill"></i><span>Inicio</span></a>
 <a href="#" onclick="OpenPage('orcamentos.html')"><i class="bi bi-receipt"></i><span>Orçamentos</span></a>
 <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-sidebar"><i class="bi bi-three-dots"></i><span>Menu</span></a>
 </div>
@@ -64,6 +64,52 @@
 
 <div id="menu-request" data-menu-load="menu-request.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
 </div>
+
+<div id="filter-sidebar_proposta"  class="offcanvas offcanvas-start offcanvas-detached rounded-m" style="display: block; visibility: hidden;" >
+  
+    <div class="menu-size" style="width:230px;">
+      <div class="pt-3">
+        <div class="page-title sidebar-title d-flex">
+        <div class="align-self-center me-auto">
+        <h1>Filtros</h1>
+        </div>
+        </div>
+          <div class="form-custom form-label form-border form-icon px-3 pt-1">
+            <i class="bi bi-calendar font-13"></i>
+            <select class="form-select rounded-xs" id="c6a">
+              <option value="10">Mês atual</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+            <i class="bi bi-search font-13"></i>
+            <select class="form-select rounded-xs listagem_nomes_comercial" id="c6a" >
+                <option value="10">Petryck</option>
+                <option value="10">Mateus</option>
+              </select>
+            <i class="bi bi-search font-13"></i>
+            <input class="form" style="width: 100%;" placeholder="Nº propostas"><br>
+            <i class="bi bi-people font-13"></i>
+            <input class="form" style="width: 100%;" placeholder="Cliente">
+          </div>
+          <div class="form-custom form-label form-border form-icon text-center pb-3 gradient-red" data-bs-target="#filter-sidebar" style="padding-top: 1rem !important; border-radius: 22px !important;width: 85%;margin-left: 7%; margin-top: 2rem;">
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#filter-sidebar" class="color-white">
+              <div data-bs-target="#filter-sidebar">Filtrar</div>
+            </a>
+          </div>
+      </div>
+    </div>
+    
+    </div>
 
 <div id="menu-exchange" data-menu-load="menu-exchange.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
 </div>

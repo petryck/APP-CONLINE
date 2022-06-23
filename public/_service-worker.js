@@ -1,6 +1,6 @@
 
 var APP_NAME = 'Sirius - PWA';
-var APP_VER = '1.0';
+var APP_VER = '1.1';
 var CACHE_NAME = APP_NAME + '-' + APP_VER;
 var APP_ROOT = '/';
 var REQUIRED_FILES = [

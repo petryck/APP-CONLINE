@@ -2,14 +2,14 @@
     <div class="page-title d-flex">
     <div class="align-self-center me-auto">
     <p class="color-highlight color-red-dark">Olá Petryck</p>
-    <h1 class="color-theme">Propostas Pendentes</h1>
+    <h1 class="color-theme">Prop. Pendentes</h1>
     </div>
     <div class="align-self-center ms-auto">
-    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-notifications" class="icon gradient-blue color-white shadow-bg shadow-bg-xs rounded-m">
+    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-notifications" class="icon gradient-red color-white shadow-bg shadow-bg-xs rounded-m">
     <i class="bi bi-bell-fill font-17"></i>
     <!-- <em class="badge bg-red-dark color-white scale-box">3</em> -->
     </a>
-    <a href="#" data-bs-toggle="dropdown" class="icon gradient-blue shadow-bg shadow-bg-s rounded-m">
+    <a href="#" data-bs-toggle="dropdown" class="icon gradient-red shadow-bg shadow-bg-s rounded-m">
     <img src="https://i.ibb.co/ZzMQTqW/foto-2021-PETRYCK.png" width="45" class="rounded-m" alt="img">
     </a>
     
@@ -44,9 +44,9 @@
     </div>
 
     <h6 class="text-center opacity-30 pb-3">Toque em um item abaixo para mais detalhes</h6>
-    <div class="content mt-0 mb-0">
+    <div class="content mt-0 mb-0 listprocessos">
   
-    <a data-bs-toggle="offcanvas" data-bs-target="#menu-activity" href="page-reports.html#" class="d-flex pb-3">
+    <!-- <a data-bs-toggle="offcanvas" data-bs-target="#menu-activity" href="#" class="d-flex pb-3">
     <div class="align-self-center">
     <span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-18 color-white"></i></span>
     </div>
@@ -55,12 +55,12 @@
     <p class="mb-0 font-11 opacity-50">Marcone Vidal</p>
     </div>
     <div class="align-self-center ms-auto text-end">
-    <h4 class="pt-1 mb-n1 color-green-dark">PF0001/22</h4>
+    <h4 class="pt-1 mb-n1 color-green-dark">PF0001/22 - FCL</h4>
     <p class="mb-0 font-12 opacity-50">06/06/2022 15:15</p>
     </div>
     </a>
  
-    <a data-bs-toggle="offcanvas" data-bs-target="#menu-activity" href="page-reports.html#" class="d-flex pb-3">
+    <a data-bs-toggle="offcanvas" data-bs-target="#menu-activity" href="#" class="d-flex pb-3">
     <div class="align-self-center">
     <span class="icon rounded-s me-2 gradient-mint shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>
     </div>
@@ -69,10 +69,182 @@
         <p class="mb-0 font-11 opacity-50">Marcone Vidal</p>
     </div>
     <div class="align-self-center ms-auto text-end">
-        <h4 class="pt-1 mb-n1 color-mint-dark">PF0001/22</h4>
+        <h4 class="pt-1 mb-n1 color-mint-dark">PF0001/22 - LCL</h4>
         <p class="mb-0 font-12 opacity-50">06/06/2022 15:15</p>
     </div>
-    </a>
+    </a> -->
  
     </div>
     </div>
+
+
+    <div id="menu-activity" class="offcanvas offcanvas-start" style="visibility:visible; display:block;padding-top: 25px;">
+
+        <div class="menu-size" style="width:100vw;margin-bottom: 100px !important;">
+        <div class="d-flex mx-3 mt-3 py-1">
+        <div class="align-self-center icon_tipo">
+        
+        </div>
+        <div class="align-self-center">
+        <h1 class="font-24 mb-0 nome_empresa"></h1>
+        <h2 class="mt-n1 mb-0 font-13 opacity-50 font-500"><span class="ref_proposta"></span></h2>
+        </div>
+        <div class="align-self-center ms-auto">
+        <a href="#" class="ps-4 shadow-0 me-n2" data-bs-dismiss="offcanvas">
+        <i class="bi bi-x color-red-dark font-26 line-height-xl"></i>
+        </a>
+        </div>
+        </div>
+        <div class="divider divider-margins my-3"></div>
+        <div class="content">
+        <a href="#" class="d-flex py-1 mb-2">
+        <div class="align-self-center">
+        <p class="mb-0 font-15 opacity-70">Vendedor</p>
+        <h5 class="pt-1 mb-n1 nome_vendedor"></h5>
+        
+        </div>
+        <div class="align-self-center ms-auto text-end">
+        <p class="mb-0 font-15 opacity-70">Data Abertura</p>
+        <h4 class="pt-1 mb-n1 data_abertura"></h5>
+     
+        </div>
+        </a>
+        <a href="#" class="d-flex py-1 mb-2">
+            <div class="align-self-center">
+            <p class="mb-0 font-15 opacity-70">Importador</p>
+            <h5 class="pt-1 mb-n1 nome_importador"></h5>
+            
+            </div>
+            <div class="align-self-center ms-auto text-end">
+            <p class="mb-0 font-15 opacity-70">Tipo</p>
+            <h4 class="pt-1 mb-n1 tipo_equipamento"></h5>
+         
+            </div>
+        </a>
+        <a href="#" class="d-flex py-1 mb-2">
+            <div class="align-self-center">
+            <p class="mb-0 font-15 opacity-70">Exportador</p>
+            <h5 class="pt-1 mb-n1 nome_exportador"></h5>
+            
+            </div>
+            <div class="align-self-center ms-auto text-end">
+            <p class="mb-0 font-15 opacity-70">CIA</p>
+            <h4 class="pt-1 mb-n1 nome_cia"></h5>
+         
+            </div>
+        </a>
+        <a href="#" class="d-flex py-1 mb-2">
+            <div class="align-self-center">
+            <p class="mb-0 font-15 opacity-70">Origem</p>
+            <h5 class="pt-1 mb-n1 nome_origem"></h5>
+            
+            </div>
+            <div class="align-self-center ms-auto text-end">
+            <p class="mb-0 font-15 opacity-70">Destino</p>
+            <h4 class="pt-1 mb-n1 nome_destino"></h5>
+         
+            </div>
+        </a>
+        <a href="#" class="d-flex py-1 mb-2">
+            <div class="align-self-center">
+            <p class="mb-0 font-15 opacity-70">Mercadoria</p>
+            <h5 class="pt-1 mb-n1 nome_mercadoria"></h5>
+            
+            </div>
+        </a>
+       
+
+        <!-- <a href="page-reports.html#" data-bs-toggle="offcanvas" data-bs-target="#menu-activity-single" class="d-flex py-1 mb-2">
+        <div class="align-self-center">
+        <h5 class="pt-1 mb-n1">Telephone Bill</h5>
+        <p class="mb-0 font-11 opacity-70">15th June <span class="copyright-year"></span></p>
+        </div>
+        <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1">$31.41</h4>
+        <p class="mb-0 font-11 color-blue-dark opacity-70">Download</p>
+        </div>
+        </a>
+        <a href="page-reports.html#" data-bs-toggle="offcanvas" data-bs-target="#menu-activity-single" class="d-flex py-1 mb-2">
+        <div class="align-self-center">
+        <h5 class="pt-1 mb-n1">Cloud Storage</h5>
+        <p class="mb-0 font-11 opacity-70">15th June <span class="copyright-year"></span></p>
+        </div>
+        <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1">$43.21</h4>
+        <p class="mb-0 font-11 color-blue-dark opacity-70">Download</p>
+        </div>
+        </a>
+        <a href="page-reports.html#" data-bs-toggle="offcanvas" data-bs-target="#menu-activity-single" class="d-flex py-1 mb-2">
+        <div class="align-self-center">
+        <h5 class="pt-1 mb-n1">Spotify Music</h5>
+        <p class="mb-0 font-11 opacity-70">15th June <span class="copyright-year"></span></p>
+        </div>
+        <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1">$19.21</h4>
+        <p class="mb-0 font-11 color-blue-dark opacity-70">Download</p>
+        </div>
+        </a> -->
+        </div>
+        <div class="divider divider-margins my-3"></div>
+        <center><h5>Equipamentos</h5></center>
+        <div class="row listagem_equipamentos" style="padding-left: 29px;padding-right: 29px;">
+            
+           
+        </div>
+        <div class="divider divider-margins my-3"></div>
+        <center><h5>Valores</h5></center>
+        <div class="row" style="padding-left: 29px;padding-right: 29px;">
+            <strong class="col-5 color-green-dark">Recebimento</strong>
+            <strong class="col-7 text-end color-green-dark">US$ 9.900,00</strong>
+            <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+            <strong class="col-5 color-red-dark">Pagamento</strong>
+            <strong class="col-7 text-end color-red-dark">-US$ 9.305,00</strong>
+            <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+            <strong class="col-5 gradient-green">Profit</strong>
+            <strong class="col-7 text-end gradient-green">US$ 595,00</strong>
+        </div>
+
+        <a href="#" style="margin-top:10px;" data-bs-dismiss="offcanvas" class="mx-3 btn btn-full gradient-red shadow-bg shadow-bg-s">Voltar</a>
+        </div>
+</div>
+
+
+
+<script>
+
+
+$('.listprocessos').html('')
+
+     $.ajax({
+        type: 'GET',
+        url: '/lista_propostas',
+        data:{tipo:'mes_atual', status:'Aguardando aprovação'},
+        contentType: 'application/json',
+        success: function (data) {
+            data.forEach(element => {
+            
+
+
+var processos = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" data-bs-target="#menu-activity" href="#" class="d-flex pb-3 div_propostas">
+    <div class="align-self-center">
+    <span class="icon rounded-s me-2 gradient-mint shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>
+    </div>
+    <div class="align-self-center ps-1">
+        <h5 class="pt-1 mb-n1">${element.Cliente.substring(0,20)}</h5>
+        <p class="mb-0 font-11 opacity-50">${element.Vendedor}</p>
+    </div>
+    <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1 color-mint-dark">${element.Numero_Proposta}</h4>
+        <h6 class="pt-1 mb-n1 color-mint-dark">${element.Tipo_Carga}</h6>
+        <p class="mb-0 font-12 opacity-50">${element.Data_abertura_convertido}</p>
+    </div>
+    </a>`;
+
+
+    $('.listprocessos').append(processos)
+
+            });
+        }
+    })
+
+</script>
