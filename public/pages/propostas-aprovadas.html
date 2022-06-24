@@ -5,7 +5,7 @@
     <h1 class="color-theme">Prop. Aprovadas</h1>
     </div>
     <div class="align-self-center ms-auto">
-    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#filter-sidebar_proposta" class="icon gradient-red color-white shadow-bg shadow-bg-xs rounded-m">
+    <a href="#" data-bs-toggle="offcanvas" data-tipo="Aprovada" data-bs-target="#filter-sidebar_proposta" class="icon gradient-red color-white shadow-bg shadow-bg-xs rounded-m btn_filtros">
     <i class="bi bi-funnel font-17"></i>
     <!-- <em class="badge bg-red-dark color-white scale-box">3</em> -->
     </a>
@@ -218,12 +218,19 @@ $('.listprocessos').html('')
         contentType: 'application/json',
         success: function (data) {
             data.forEach(element => {
-            
+                console.log(element)
+                let data = new Date(element.Data_abertura_convertido)
+                data = data.toLocaleDateString("pt-US") 
 
+    if(element.Tipo_Operacao == 1){
+        var icon = '<span class="icon rounded-s me-2 gradient-magenta shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-24 color-white"></i></span>';
+    }else{
+        var icon = '<span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>';
+    }
 
 var processos = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" data-bs-target="#menu-activity" href="#" class="d-flex pb-3 div_propostas">
     <div class="align-self-center">
-    <span class="icon rounded-s me-2 gradient-mint shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>
+    ${icon}
     </div>
     <div class="align-self-center ps-1">
         <h5 class="pt-1 mb-n1">${element.Cliente.substring(0,20)}</h5>
@@ -232,7 +239,7 @@ var processos = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" da
     <div class="align-self-center ms-auto text-end">
         <h4 class="pt-1 mb-n1 color-mint-dark">${element.Numero_Proposta}</h4>
         <h6 class="pt-1 mb-n1 color-mint-dark">${element.Tipo_Carga}</h6>
-        <p class="mb-0 font-12 opacity-50">${element.Data_abertura_convertido}</p>
+        <p class="mb-0 font-12 opacity-50">${data}</p>
     </div>
     </a>`;
 
@@ -249,19 +256,20 @@ var processos = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" da
         url: '/lista_vendedores',
         contentType: 'application/json',
         success: function (data) {
-
-            var vendedores = `<option value="10">Todos</option>`;
+            $('.listagem_nomes_comercial').html('')
+            var vendedores = `<option selected value="todos">Todos</option>`;
 
             $('.listagem_nomes_comercial').append(vendedores)
 
-            $('.listagem_nomes_comercial').html('')
+            
             data.forEach(element => {
-    var nome_vendedor = element.Nome
+                
+    var nome_vendedor = element.Nome;
 
         var nome_vendedor2 = nome_vendedor[0].toUpperCase() + nome_vendedor.substring(1).toLowerCase();
 
 
-            var vendedores = `<option value="10">${nome_vendedor2}</option>`;
+            var vendedores = `<option value="${element.IdPessoa}">${nome_vendedor2}</option>`;
 
             $('.listagem_nomes_comercial').append(vendedores)
 

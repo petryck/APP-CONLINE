@@ -209,6 +209,7 @@ app.get('/lista_propostas', (req, res) => {
   Ppr.Numero_Proposta,
   Ppr.Vendedor,
   Ppr.Tipo_Carga,
+  Ppr.Tipo_Operacao,
   Ppr.SituacaoProposta,
   Ppr.Tipo_modalidade,
   Ppr.IdOferta_Frete
@@ -221,16 +222,17 @@ From
   Datepart(MONTH, Ppr.Data_abertura_convertido) as MesAbertura,
   Ppr.IdOferta_Frete,
   Ppr.Cliente,
+  Ppr.Tipo_Operacao,
   Ppr.Numero_Proposta,
   Ppr.Vendedor,
   Ppr.Tipo_Carga,
   Ppr.SituacaoProposta,
   Ppr.Tipo_modalidade
 From
-  vis_Painel_Proposta Ppr WHERE SituacaoProposta = '${status}' ORDER BY IdOferta_Frete DESC`;
+  vis_Painel_Proposta Ppr WHERE Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} ORDER BY IdOferta_Frete DESC`;
  }
 
-
+console.log(sql)
       global.conn.request()
       .query(sql)
       .then(result => {
@@ -310,8 +312,78 @@ app.get('/info_proposta', (req, res) => {
 })
 
 
+app.get('/filtro_propostas', (req, res) => {
+  var tipo = req.query.tipo;
+  var periodo = req.query.periodo;
+  var vendedor = req.query.vendedor;
+  if(tipo == 'Todas'){
+    var where = `WHERE Ppr.IdOferta_Frete IS NOT NULL`;
+  }else{
+    var where = `WHERE Ppr.SituacaoProposta = '${tipo}'`;
+  }
+  
+  const date = new Date();
+  const month = date.toLocaleString('default', { month: 'numeric' });
+  const day = date.toLocaleString('default', { day: 'numeric' });
 
+  // if(req.query.cliente != ''){
+  //   where = '';
+  // }
 
+  if(req.query.proposta != ''){
+    where += ` AND Ppr.Numero_Proposta LIKE '%${req.query.proposta}%'`;
+  }
+  if(req.query.cliente != ''){
+    where += ` AND Ppr.Cliente LIKE '%${req.query.cliente}%'`;
+  }
+
+  if(req.query.vendedor != 'todos'){
+    where += ` AND Ppr.IdVendedor = ${vendedor}`;
+  }
+
+  if(req.query.periodo == 'hoje'){
+    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Datepart(DAY, Ppr.Data_abertura_convertido) = ${day}`;
+  }else if(req.query.periodo == 'ontem'){
+    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Datepart(DAY, Ppr.Data_abertura_convertido) = ${day-1}`;
+  }else if(req.query.periodo == 'esta_semana'){
+
+  }else{
+    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${periodo} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022`;
+  }
+
+  
+
+  
+
+  console.log(req.query)
+
+  
+
+  var sql = `Select
+  Ppr.Data_abertura_convertido,
+  Datepart(MONTH, Ppr.Data_abertura_convertido) as MesAbertura,
+  Ppr.IdOferta_Frete,
+  Ppr.Tipo_Operacao,
+  Ppr.IdVendedor,
+  Ppr.Cliente,
+  Ppr.Numero_Proposta,
+  Ppr.Vendedor,
+  Ppr.Tipo_Carga,
+  Ppr.SituacaoProposta,
+  Ppr.Tipo_modalidade
+From
+  vis_Painel_Proposta Ppr ${where} ORDER BY IdOferta_Frete DESC`;
+
+console.log(sql)
+
+  global.conn.request()
+  .query(sql)
+  .then(result3 => {
+
+    res.json(result3.recordset)
+  })
+
+})
 
 
 
