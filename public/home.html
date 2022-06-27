@@ -80,6 +80,7 @@
               <option value="hoje">Hoje</option>
               <option value="ontem">Ontem</option>
               <option value="esta_semana">Esta semana</option>
+              <option value="esta_semana">Semana passada</option>
               <option value="1">Janeiro</option>
               <option value="2">Fevereiro</option>
               <option value="3">Março</option>
@@ -111,6 +112,54 @@
     </div>
     
     </div>
+
+<div id="filter-mov_financeira"  class="offcanvas offcanvas-start offcanvas-detached rounded-m" style="display: block; visibility: hidden;" >
+
+  <div class="menu-size" style="width:230px;">
+    <div class="pt-3">
+      <div class="page-title sidebar-title d-flex">
+      <div class="align-self-center me-auto">
+      <h1>Filtros</h1>
+      </div>
+      </div>
+        <div class="form-custom form-label form-border form-icon px-3 pt-1">
+          <i class="bi bi-calendar font-13"></i>
+          <select id="filtro_periodo" class="form-select rounded-xs">
+            <option value="hoje">Hoje</option>
+            <option value="ontem">Ontem</option>
+            <option value="esta_semana">Esta semana</option>
+            <option value="esta_semana">Semana passada</option>
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+          </select>
+          <i class="bi bi-search font-13"></i>
+          <select id="filtro_vendedor" class="form-select rounded-xs listagem_nomes_comercial" >
+        
+            </select>
+          <i class="bi bi-search font-13"></i>
+          <input class="form" style="width: 100%;" id="filtro_proposta" placeholder="Nº propostas"><br>
+          <i class="bi bi-people font-13"></i>
+          <input class="form" style="width: 100%;" id="filtro_cliente" placeholder="Cliente">
+        </div>
+        <div class="form-custom form-label form-border form-icon text-center pb-3 gradient-red"  style="padding-top: 1rem !important; border-radius: 22px !important;width: 85%;margin-left: 7%; margin-top: 2rem;">
+          <a href="#" data-bs-toggle="offcanvas" class="color-white btn_confirma_filtro">
+            <div >Filtrar</div>
+          </a>
+        </div>
+    </div>
+  </div>
+  
+  </div>
 
 <div id="menu-exchange" data-menu-load="menu-exchange.html" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
 </div>

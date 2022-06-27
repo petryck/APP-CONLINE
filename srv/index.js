@@ -248,6 +248,16 @@ console.log(sql)
 })
 
 
+function dataAtualFormatada(){
+  var data = new Date(),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear();
+  return anoF+"-"+mesF+"-"+diaF;
+}
+
 app.get('/info_proposta', (req, res) => {
   var referencia = req.query.referencia;
 
@@ -346,7 +356,23 @@ app.get('/filtro_propostas', (req, res) => {
   }else if(req.query.periodo == 'ontem'){
     where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Datepart(DAY, Ppr.Data_abertura_convertido) = ${day-1}`;
   }else if(req.query.periodo == 'esta_semana'){
-
+    console.log('esta semana')
+    let splitedDate = dataAtualFormatada().split("-")
+    let dateObj = new Date(+splitedDate[0], +splitedDate[1]-1, +splitedDate[2], 0,0,0,0 )
+    let firstDayYear = new Date(+splitedDate[0],0,1,0,0,0,0 )
+    let yearDay = ((dateObj - firstDayYear) / 86400000)+1
+    let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
+    
+    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Case When (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) = 0 Then 52 else (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) End = ${weekInYear}`;
+  }else if(req.query.periodo == 'semana_passada'){
+    console.log('esta semana')
+    let splitedDate = dataAtualFormatada().split("-")
+    let dateObj = new Date(+splitedDate[0], +splitedDate[1]-1, +splitedDate[2], 0,0,0,0 )
+    let firstDayYear = new Date(+splitedDate[0],0,1,0,0,0,0 )
+    let yearDay = ((dateObj - firstDayYear) / 86400000)+1
+    let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
+    
+    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Case When (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) = 0 Then 52 else (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) End = ${weekInYear-1}`;
   }else{
     where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${periodo} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022`;
   }
@@ -384,6 +410,70 @@ console.log(sql)
   })
 
 })
+
+
+app.get('/ultimas_propostas', (req, res) => {
+
+  var sql = `Select TOP 5
+  Ppr.Data_abertura_convertido,
+  Datepart(MONTH, Ppr.Data_abertura_convertido) as MesAbertura,
+  Ppr.IdOferta_Frete,
+  Ppr.Tipo_Operacao,
+  Ppr.IdVendedor,
+  Ppr.Cliente,
+  Ppr.Numero_Proposta,
+  Ppr.Vendedor,
+  Ppr.Tipo_Carga,
+  Ppr.SituacaoProposta,
+  Ppr.Tipo_modalidade
+From
+  vis_Painel_Proposta Ppr ORDER BY IdOferta_Frete DESC`;
+
+
+  global.conn.request()
+  .query(sql)
+  .then(result3 => {
+
+    res.json(result3.recordset)
+  })
+
+})
+
+
+
+app.get('/ultimas_mov_financeiras', (req, res) => {
+
+  var sql = `Select TOP 5
+  Mfn.IdMovimentacao_Financeira,
+  Pss.Nome as Pessoa,
+  Mfn.Data_Conciliacao,
+  Convert(varchar, Mfn.Data_Conciliacao, 23) as Data_Conciliacao_Convertido,
+  case 
+    when Mfn.IdTipo_Transacao in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Mfn.Referencia is null Then 'Administrativo'
+    When Mfn.IdTipo_Transacao not in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Mfn.Referencia is null Then 'Baixa unificada' 
+    Else Mfn.Referencia end as Referencia,
+  Mfn.Natureza,
+  Mdd.Sigla,
+  Mfn.Valor_Original
+From
+  mov_Movimentacao_Financeira Mfn
+Left Outer Join
+  cad_Pessoa Pss on Pss.IdPessoa = Mfn.IdPessoa
+Left Outer Join
+  cad_Moeda Mdd on Mdd.IdMoeda = Mfn.IdMoeda
+Order by
+  Mfn.IdMovimentacao_Financeira desc`;
+
+
+  global.conn.request()
+  .query(sql)
+  .then(result3 => {
+
+    res.json(result3.recordset)
+  })
+
+})
+
 
 
 

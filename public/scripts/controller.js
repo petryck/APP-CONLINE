@@ -212,23 +212,66 @@ $(document).on('click', '.div_propostas', function(e){
     });
 
     $('.valores_proposta').html('')
+    profit = [];
+    profit['total'] = [];
     msg['valores'].forEach(element => {
         
 
         
         if(element.Natureza == 'Recebimento'){
             var valores = `<strong class="col-5 color-green-dark">${element.Natureza}</strong>
-                            <strong class="col-7 text-end color-green-dark">${element.Moeda} ${element.Valor}</strong>
+                            <strong class="col-7 text-end color-green-dark">${element.Valor.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
                             <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
         }else{
             var valores = `<strong class="col-5 color-red-dark">${element.Natureza}</strong>
-                            <strong class="col-7 text-end color-red-dark">${element.Moeda} ${element.Valor}</strong>
+                            <strong class="col-7 text-end color-red-dark">${element.Valor.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
                             <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
+
+        
+                            
+        }
+
+        if(profit['total'][element.Moeda]){
+            profit['total'][element.Moeda] = profit['total'][element.Moeda] + element.Valor;
+        }else{
+            profit['total'][element.Moeda] = element.Valor;
         }
         
 
         $('.valores_proposta').append(valores)
     });
+
+
+
+    for(var natureza in profit['total']) {
+
+        if(profit['total'][natureza] < 0){
+            color = 'color-red-dark'
+        }else{
+            color = 'color-white'
+        }
+
+    
+        
+
+    if(profit['total'][natureza] != 0){
+        var valores = `<strong class="col-5 color-white">TOTAL</strong>
+                    <strong class="col-7 text-end color-white">${profit['total'][natureza].toLocaleString('pt-br',{style: 'currency', currency: natureza})}</strong>
+                    <div class="col-12 mt-2 mb-2"></div>`;
+
+    $('.valores_proposta').append(valores)
+    }
+        // console.log(profit['total'][natureza])
+    }
+
+
+    
+
+    // var valores = `<strong class="col-5 color-red-dark">${element.Natureza}</strong>
+    // <strong class="col-7 text-end color-red-dark">${element.Moeda} ${element.Valor}</strong>
+    // <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
+
+    // $('.valores_proposta').append(valores)
 
 
 
@@ -278,7 +321,7 @@ console.log(localStorage.getItem('status_geral'))
         }
     })
     .done(function(msg){
-     console.log('aqui')
+   
     
         $('.page-content').html(msg)
         $('#preloader').addClass('preloader-hide');
@@ -289,6 +332,141 @@ console.log(localStorage.getItem('status_geral'))
         
     });
 }
+
+
+
+setInterval(() => {
+
+    if($('.mov_propostas').length > 0){
+        atualizar_new_propostas()
+    }
+
+    if($('.ultima_mov_financeira').length > 0){
+        atualizar_new_mov_financeira()
+    }
+    
+}, 5000);
+
+function atualizar_new_propostas(ultimoid){
+
+    $.ajax({
+        url : "/ultimas_propostas",
+        type : 'GET',
+        beforeSend : function(){
+ 
+        }
+    })
+    .done(function(msg){
+
+
+        $('.mov_propostas').html('')
+            msg.forEach(element => {
+
+                let data = new Date(element.Data_abertura_convertido)
+                data = data.toLocaleDateString("pt-US") 
+
+         
+if(element.Tipo_Operacao == 1){
+        var icon = '<span class="icon rounded-s me-2 gradient-magenta shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-24 color-white"></i></span>';
+    }else{
+        var icon = '<span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>';
+    }
+
+var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" data-bs-target="#menu-activity" href="#" class="d-flex pb-3 div_propostas">
+    <div class="align-self-center">
+    ${icon}
+    </div>
+    <div class="align-self-center ps-1">
+        <h5 class="pt-1 mb-n1">${element.Cliente.substring(0,20)}</h5>
+        <p class="mb-0 font-11 opacity-50">${element.Vendedor}</p>
+    </div>
+    <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1 color-mint-dark">${element.Numero_Proposta}</h4>
+        <h6 class="pt-1 mb-n1 color-mint-dark">${element.Tipo_Carga}</h6>
+        <p class="mb-0 font-12 opacity-50">${data}</p>
+    </div>
+    </a>`;
+
+            $('.mov_propostas').append(propostas)
+
+          
+            });      
+
+
+        
+    })
+    .fail(function(jqXHR, textStatus, msg){
+        
+    });
+
+   
+}
+
+
+
+function atualizar_new_mov_financeira(ultimoid){
+
+    $.ajax({
+        url : "/ultimas_mov_financeiras",
+        type : 'GET',
+        beforeSend : function(){
+ 
+        }
+    })
+    .done(function(msg){
+    
+
+
+        $('.ultima_mov_financeira').html('')
+            msg.forEach(element => {
+
+                let data = new Date(element.Data_Conciliacao_Convertido)
+                data = data.toLocaleDateString("pt-US") 
+
+         
+if(element.Natureza == 1){
+        var icon = '<span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>';
+        var button_color = 'color-green-dark'
+    }else{
+        var button_color = 'color-red-dark'
+        var icon = '<span class="icon rounded-s me-2 gradient-red shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-24 color-white"></i></span>';
+    }
+
+
+    
+    
+
+var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Financeira}" data-bs-target="#menu-mov_financeira" href="#" class="d-flex pb-3 div_mov_financeira">
+    <div class="align-self-center">
+    ${icon}
+    </div>
+    <div class="align-self-center ps-1">
+        <h5 class="pt-1 mb-n1">${element.Pessoa.substring(0,20)}</h5>
+        <p class="mb-0 font-11 opacity-50">${element.Referencia}</p>
+    </div>
+    <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1 ${button_color}">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Sigla})}</h4>
+        <p class="mb-0 font-12 opacity-50">${data}</p>
+    </div>
+    </a>`;
+
+            $('.ultima_mov_financeira').append(propostas)
+
+        
+            });      
+
+
+        
+    })
+    .fail(function(jqXHR, textStatus, msg){
+        
+    });
+
+   
+}
+
+
+
 
     
    
