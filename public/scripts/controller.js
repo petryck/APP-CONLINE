@@ -429,6 +429,7 @@ function atualizar_new_mov_financeira(ultimoid){
 
 
     $('#menu-activity-financeiro .pessoa').text('');
+    $('#menu-activity-financeiro .ResponsavelConciliacao').text('');
     $('#menu-activity-financeiro .Referencia').text('');
     $('#menu-activity-financeiro .data').text('');
     $('#menu-activity-financeiro .tipoTransacao').text('');
@@ -466,13 +467,15 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Fina
     </a>`;
 
     $('#menu-activity-financeiro .pessoa').text(element.Pessoa.substring(0,20));
+    $('#menu-activity-financeiro .ResponsavelConciliacao').text(element.ResponsavelConciliacao);
+    $('#menu-activity-financeiro .Referencia').text(element.Referencia);
+    $('#menu-activity-financeiro .data').text(dataMovimentacao);
+    // $('#menu-activity-financeiro .tipoTransacao').text(element.tipoTransacao);
+
 
 
     $('.ultima_mov_financeira').append(propostas)
-
-
-
-        
+  
 });      
 
 

@@ -443,7 +443,7 @@ From
 
 app.get('/ultimas_mov_financeiras', (req, res) => {
 
-  var sql = `Select TOP 5
+  var sql = `Select top 5
   Mfn.IdMovimentacao_Financeira,
   Pss.Nome as Pessoa,
   Mfn.Data_Conciliacao,
@@ -454,11 +454,17 @@ app.get('/ultimas_mov_financeiras', (req, res) => {
     Else Mfn.Referencia end as Referencia,
   Mfn.Natureza,
   Mdd.Sigla,
-  Mfn.Valor_Original
+  Mfn.Valor_Original,
+  Rcn.Nome as ResponsavelConciliacao,
+  Ttr.Nome as TipoTransacao
 From
   mov_Movimentacao_Financeira Mfn
 Left Outer Join
   cad_Pessoa Pss on Pss.IdPessoa = Mfn.IdPessoa
+Left Outer Join
+  cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Mfn.IdTipo_Transacao
+Left Outer Join
+  cad_Pessoa Rcn on Rcn.IdPessoa = Mfn.IdResponsavel_Conciliacao
 Left Outer Join
   cad_Moeda Mdd on Mdd.IdMoeda = Mfn.IdMoeda
 Order by
@@ -495,7 +501,8 @@ app.get('/listagem_faturas', (req, res) => {
   Convert(varchar, Ffn.Data_Pagamento, 23) as DataPagamento,
   Rfn.Natureza, /*0-Pagamento // 1-Recebimento*/
   Mdo.Sigla as Moeda,
-  Rfn.Valor_Original
+  Rfn.Valor_Original,
+  Rcn.Nome as ResponsavelConciliacao
 From
   mov_Registro_Financeiro Rfn
 Left Outer Join
@@ -504,6 +511,8 @@ Left Outer Join
   mov_Fatura_Financeira Ffn on Ffn.IdRegistro_Financeiro = Rfn.IdRegistro_Financeiro
 Left Outer Join
   cad_Moeda Mdo on Mdo.IdMoeda = Rfn.IdMoeda
+Left Outer Join
+  cad_Pessoa Rcn on Rcn.IdPessoa = Mfn.IdResponsavel_Conciliacao
 Left Outer Join
   cad_Pessoa Pss on Pss.IdPessoa = Rfn.IdPessoa
 Left Outer Join
