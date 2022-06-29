@@ -149,7 +149,9 @@ $(document).on('click', '.div_propostas', function(e){
 .done(function(msg){
     console.log(msg)
     let data = new Date(msg['infos'].Data_abertura_convertido)
-    data = data.toLocaleDateString("pt-US") 
+                var dataProposta = new Date();
+                dataProposta.setDate(data.getDate() + 1);
+                dataProposta = dataProposta.toLocaleDateString("pt-US") 
 
 
     $('#menu-activity .nome_empresa').text('');
@@ -185,7 +187,7 @@ $(document).on('click', '.div_propostas', function(e){
     $('#menu-activity .nome_empresa').text(msg['infos'].Cliente.substring(0,15));
     $('#menu-activity .nome_vendedor').text(msg['infos'].Vendedor);
     $('#menu-activity .ref_proposta').text(msg['infos'].Numero_Proposta);
-    $('#menu-activity .data_abertura').text(data);
+    $('#menu-activity .data_abertura').text(dataProposta);
     $('#menu-activity .nome_importador').text(msg['infos'].Importador);
     $('#menu-activity .tipo_equipamento').text(msg['infos'].Tipo_carga);
     $('#menu-activity .nome_exportador').text(msg['infos'].Exportador);
@@ -363,7 +365,10 @@ function atualizar_new_propostas(ultimoid){
             msg.forEach(element => {
 
                 let data = new Date(element.Data_abertura_convertido)
-                data = data.toLocaleDateString("pt-US") 
+                var dataProposta = new Date();
+                dataProposta.setDate(data.getDate() + 1);
+                dataProposta = dataProposta.toLocaleDateString("pt-US") 
+                
 
          
 if(element.Tipo_Operacao == 1){
@@ -383,7 +388,7 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" da
     <div class="align-self-center ms-auto text-end">
         <h4 class="pt-1 mb-n1 color-mint-dark">${element.Numero_Proposta}</h4>
         <h6 class="pt-1 mb-n1 color-mint-dark">${element.Tipo_Carga}</h6>
-        <p class="mb-0 font-12 opacity-50">${data}</p>
+        <p class="mb-0 font-12 opacity-50">${dataProposta}</p>
     </div>
     </a>`;
 
@@ -421,7 +426,9 @@ function atualizar_new_mov_financeira(ultimoid){
             msg.forEach(element => {
 
                 let data = new Date(element.Data_Conciliacao_Convertido)
-                data = data.toLocaleDateString("pt-US") 
+                var dataMovimentacao = new Date();
+                dataMovimentacao.setDate(data.getDate() + 1);
+                dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
 
          
 if(element.Natureza == 1){
@@ -446,7 +453,7 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Fina
     </div>
     <div class="align-self-center ms-auto text-end">
         <h4 class="pt-1 mb-n1 ${button_color}">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Sigla})}</h4>
-        <p class="mb-0 font-12 opacity-50">${data}</p>
+        <p class="mb-0 font-12 opacity-50">${dataMovimentacao}</p>
     </div>
     </a>`;
 
