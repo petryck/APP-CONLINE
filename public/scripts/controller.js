@@ -470,8 +470,10 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Fina
     $('#menu-activity-financeiro .ResponsavelConciliacao').text(element.ResponsavelConciliacao);
     $('#menu-activity-financeiro .Referencia').text(element.Referencia);
     $('#menu-activity-financeiro .data').text(dataMovimentacao);
-    // $('#menu-activity-financeiro .tipoTransacao').text(element.tipoTransacao);
-
+    $('#menu-activity-financeiro .tipoTransacao').text(element.TipoTransacao);
+    $('#menu-activity-financeiro .contaCorrente').text(element.ContaCorrente);
+    $('#menu-activity-financeiro .moeda').text(element.Sigla);
+    $('#menu-activity-financeiro .valor').text(element.Valor_Original);
 
 
     $('.ultima_mov_financeira').append(propostas)

@@ -456,7 +456,8 @@ app.get('/ultimas_mov_financeiras', (req, res) => {
   Mdd.Sigla,
   Mfn.Valor_Original,
   Rcn.Nome as ResponsavelConciliacao,
-  Ttr.Nome as TipoTransacao
+  Ttr.Nome as TipoTransacao,
+  Ccr.Nome as ContaCorrente
 From
   mov_Movimentacao_Financeira Mfn
 Left Outer Join
@@ -467,6 +468,8 @@ Left Outer Join
   cad_Pessoa Rcn on Rcn.IdPessoa = Mfn.IdResponsavel_Conciliacao
 Left Outer Join
   cad_Moeda Mdd on Mdd.IdMoeda = Mfn.IdMoeda
+Left Outer Join
+  cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Mfn.IdConta_Corrente
 Order by
   Mfn.IdMovimentacao_Financeira desc`;
 
@@ -496,7 +499,7 @@ app.get('/listagem_faturas', (req, res) => {
     Else Rfn.Referencia 
   end as Referencia,
   Ccr.Nome as ContaCorrente,
-  Ttr.Nome as TipoTransacao,
+  Ttr.Nome as tipoTransacao,
   Ffn.Data_Pagamento,
   Convert(varchar, Ffn.Data_Pagamento, 23) as DataPagamento,
   Rfn.Natureza, /*0-Pagamento // 1-Recebimento*/
