@@ -434,16 +434,18 @@ function atualizar_new_mov_financeira(ultimoid){
 if(element.Natureza == 1){
         var icon = '<span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>';
         var button_color = 'color-green-dark'
+
+        $('.icon_tipo_movimentacao').html(icon)
     }else{
         var button_color = 'color-red-dark'
         var icon = '<span class="icon rounded-s me-2 gradient-red shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-24 color-white"></i></span>';
+
+        $('.icon_tipo_movimentacao').html(icon)
     }
 
-
-    
     
 
-var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Financeira}" data-bs-target="#menu-mov_financeira" href="#" class="d-flex pb-3 div_mov_financeira">
+var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Financeira}" data-bs-target="#menu-activity-financeiro" href="#" class="d-flex pb-3 div_mov_financeira">
     <div class="align-self-center">
     ${icon}
     </div>
