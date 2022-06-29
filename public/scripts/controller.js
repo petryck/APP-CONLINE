@@ -459,10 +459,10 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Fina
     </div>
     </a>`;
 
-            $('.ultima_mov_financeira').append(propostas)
+    $('.ultima_mov_financeira').append(propostas)
 
         
-            });      
+});      
 
 
         
