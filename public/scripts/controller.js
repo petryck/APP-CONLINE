@@ -419,9 +419,6 @@ function atualizar_new_mov_financeira(ultimoid){
         }
     })
     .done(function(msg){
-    
-
-
         $('.ultima_mov_financeira').html('')
             msg.forEach(element => {
 
@@ -429,6 +426,15 @@ function atualizar_new_mov_financeira(ultimoid){
                 var dataMovimentacao = new Date();
                 dataMovimentacao.setDate(data.getDate() + 1);
                 dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
+
+
+    $('#menu-activity-financeiro .pessoa').text('');
+    $('#menu-activity-financeiro .Referencia').text('');
+    $('#menu-activity-financeiro .data').text('');
+    $('#menu-activity-financeiro .tipoTransacao').text('');
+    $('#menu-activity-financeiro .contaCorrente').text('');
+    $('#menu-activity-financeiro .moeda').text('');
+    $('#menu-activity-financeiro .valor').text('');
 
          
 if(element.Natureza == 1){
@@ -459,7 +465,12 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Fina
     </div>
     </a>`;
 
+    $('#menu-activity-financeiro .pessoa').text(element.Pessoa.substring(0,20));
+
+
     $('.ultima_mov_financeira').append(propostas)
+
+
 
         
 });      
