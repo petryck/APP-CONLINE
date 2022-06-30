@@ -1,11 +1,11 @@
 <div class="pt-3">
   <div class="page-title d-flex">
   <div class="align-self-center me-auto">
-  <p class="color-highlight color-red-dark">Movimentação de</p>
+  <p class="color-highlight color-red-dark">Movimentações de</p>
   <h1 class="color-theme">Recebimentos</h1>
   </div>
   <div class="align-self-center ms-auto">
-  <a href="#" data-bs-toggle="offcanvas" data-tipo="Aprovada" data-bs-target="#filter-sidebar_proposta" class="icon gradient-red color-white shadow-bg shadow-bg-xs rounded-m btn_filtros">
+  <a href="#" data-bs-toggle="offcanvas" data-tipo="1" data-bs-target="#filter-mov_financeira" class="icon gradient-red color-white shadow-bg shadow-bg-xs rounded-m btn_filtros_financeiro">
   <i class="bi bi-funnel font-17"></i>
   <!-- <em class="badge bg-red-dark color-white scale-box">3</em> -->
   </a>
@@ -152,4 +152,7 @@ $('.listprocessos').html('')
       }
    })
 
+
+   $('.btn_confirma_filtro_financeiro').attr('data-tipo', '1')
+   $('.btn_confirma_filtro_financeiro').click()
 </script>

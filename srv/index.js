@@ -356,7 +356,7 @@ app.get('/filtro_propostas', (req, res) => {
   }else if(req.query.periodo == 'ontem'){
     where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Datepart(DAY, Ppr.Data_abertura_convertido) = ${day-1}`;
   }else if(req.query.periodo == 'esta_semana'){
-    console.log('esta semana')
+
     let splitedDate = dataAtualFormatada().split("-")
     let dateObj = new Date(+splitedDate[0], +splitedDate[1]-1, +splitedDate[2], 0,0,0,0 )
     let firstDayYear = new Date(+splitedDate[0],0,1,0,0,0,0 )
@@ -373,6 +373,8 @@ app.get('/filtro_propostas', (req, res) => {
     let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
     
     where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Case When (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) = 0 Then 52 else (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) End = ${weekInYear-1}`;
+  }else if(req.query.periodo == 'todas'){
+  
   }else{
     where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${periodo} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022`;
   }
@@ -401,6 +403,12 @@ From
   vis_Painel_Proposta Ppr ${where} ORDER BY IdOferta_Frete DESC`;
 
 console.log(sql)
+
+
+
+
+
+
 
   global.conn.request()
   .query(sql)
@@ -443,6 +451,8 @@ From
 
 app.get('/ultimas_mov_financeiras', (req, res) => {
 
+
+
   var sql = `Select top 5
   Mfn.IdMovimentacao_Financeira,
   Pss.Nome as Pessoa,
@@ -470,6 +480,7 @@ Left Outer Join
   cad_Moeda Mdd on Mdd.IdMoeda = Mfn.IdMoeda
 Left Outer Join
   cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Mfn.IdConta_Corrente
+ 
 Order by
   Mfn.IdMovimentacao_Financeira desc`;
 
@@ -486,40 +497,116 @@ Order by
 
 app.get('/listagem_faturas', (req, res) => {
 
-  var sql = `Select TOP 30
-  Rfn.IdRegistro_Financeiro,
-  Rfn.Data,
-  Convert(varchar, Rfn.Data, 23) as DataConvertido,
+  
+  var tipo = req.query.tipo;
+  var periodo = req.query.periodo;
+  const date = new Date();
+  const month = date.toLocaleString('default', { month: 'numeric' });
+  const day = date.toLocaleString('default', { day: 'numeric' });
+  const year = date.toLocaleString('default', { year: 'numeric' });
+
+  if(tipo == 'Todas'){
+    var where = `WHERE Mfn.IdMovimentacao_Financeira IS NOT NULL`;
+  }else{
+    var where = `WHERE Mfn.Natureza = '${tipo}'`;
+  }
+
+  if(req.query.pessoa != '' && req.query.pessoa){
+    where += ` AND Pessoa LIKE '%${req.query.pessoa}%'`;
+  }
+
+  if(req.query.referencia != '' && req.query.referencia){
+    where += ` AND FiltroReferencia LIKE '%${req.query.referencia}%'`;
+  }
+
+
+  if(req.query.periodo == 'hoje'){
+    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Datepart(DAY, Mfn.Data_Conciliacao) = ${day}`;
+  }else if(req.query.periodo == 'ontem'){
+    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Datepart(DAY, Mfn.Data_Conciliacao) = ${day-1}`;
+  }else if(req.query.periodo == 'esta_semana'){
+
+    let splitedDate = dataAtualFormatada().split("-")
+    let dateObj = new Date(+splitedDate[0], +splitedDate[1]-1, +splitedDate[2], 0,0,0,0 )
+    let firstDayYear = new Date(+splitedDate[0],0,1,0,0,0,0 )
+    let yearDay = ((dateObj - firstDayYear) / 86400000)+1
+    let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
+    
+    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Case When (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) = 0 Then 52 else (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) End = ${weekInYear}`;
+  }else if(req.query.periodo == 'semana_passada'){
+    console.log('esta semana')
+    let splitedDate = dataAtualFormatada().split("-")
+    let dateObj = new Date(+splitedDate[0], +splitedDate[1]-1, +splitedDate[2], 0,0,0,0 )
+    let firstDayYear = new Date(+splitedDate[0],0,1,0,0,0,0 )
+    let yearDay = ((dateObj - firstDayYear) / 86400000)+1
+    let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
+    
+    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Case When (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) = 0 Then 52 else (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) End = ${weekInYear-1}`;
+  }else if(req.query.periodo == 'todas'){
+  
+  }else{
+    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${periodo} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year}`;
+  }
+
+
+  var sql = `Select
+  *
+From (
+Select
+  Mfn.IdMovimentacao_Financeira,
   Pss.Nome as Pessoa,
-  Rfn.Situacao, /*1-Em aberto // 2-Finalizado // 3-Cancelado // 4-Parcialmente quitado*/
-  Rfn.Historico_Resumo,
-  case 
-    when Rfn.IdTipo_Transacao in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Administrativo'
-    When Rfn.IdTipo_Transacao not in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Baixa unificada' 
-    Else Rfn.Referencia 
-  end as Referencia,
+  Mfn.Data_Conciliacao,
+  Convert(varchar, Mfn.Data_Conciliacao, 23) as Data_Conciliacao_Convertido,
+  case
+    when Mfn.IdTipo_Transacao in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Mfn.Referencia is null Then 'Administrativo'
+    When Mfn.IdTipo_Transacao not in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Mfn.Referencia is null Then 'Baixa unificada'
+    Else Mfn.Referencia end as Referencia,
+  Mfn.Natureza,
+  Mdd.Sigla,
+  Mfn.Valor_Original,
+  Rcn.Nome as ResponsavelConciliacao,
+  Ttr.Nome as TipoTransacao,
   Ccr.Nome as ContaCorrente,
-  Ttr.Nome as tipoTransacao,
-  Ffn.Data_Pagamento,
-  Convert(varchar, Ffn.Data_Pagamento, 23) as DataPagamento,
-  Rfn.Natureza, /*0-Pagamento // 1-Recebimento*/
-  Mdo.Sigla as Moeda,
-  Rfn.Valor_Original,
-  Rcn.Nome as ResponsavelConciliacao
+  Case
+    When STUFF((SELECT '/ ' + Rfn.Referencia
+            From
+                mov_Movimentacao_Financeira_Categoria Mfc
+            Left Outer Join
+                mov_Fatura_Financeira_Categoria Ffc on Ffc.IdFatura_Financeira_Categoria = Mfc.IdFatura_Financeira_Categoria
+            Left Outer Join
+                mov_Fatura_Financeira Ffn on Ffn.IdFatura_Financeira = Ffc.IdFatura_Financeira
+            Left Outer Join
+                mov_Registro_Financeiro Rfn on Rfn.IdRegistro_Financeiro = Ffn.IdRegistro_Financeiro
+            Where
+              Mfc.IdMovimentacao_Financeira = Mfn.IdMovimentacao_Financeira FOR XML PATH ('')), 1, 1, '') is null Then 'Administrativo'
+    Else STUFF((SELECT '/ ' + Rfn.Referencia
+            From
+                mov_Movimentacao_Financeira_Categoria Mfc
+            Left Outer Join
+                mov_Fatura_Financeira_Categoria Ffc on Ffc.IdFatura_Financeira_Categoria = Mfc.IdFatura_Financeira_Categoria
+            Left Outer Join
+                mov_Fatura_Financeira Ffn on Ffn.IdFatura_Financeira = Ffc.IdFatura_Financeira
+            Left Outer Join
+                mov_Registro_Financeiro Rfn on Rfn.IdRegistro_Financeiro = Ffn.IdRegistro_Financeiro
+            Where
+              Mfc.IdMovimentacao_Financeira = Mfn.IdMovimentacao_Financeira FOR XML PATH ('')), 1, 1, '') end as FiltroReferencia
 From
-  mov_Registro_Financeiro Rfn
+  mov_Movimentacao_Financeira Mfn
 Left Outer Join
-  cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Rfn.IdTipo_Transacao
+  cad_Pessoa Pss on Pss.IdPessoa = Mfn.IdPessoa
 Left Outer Join
-  mov_Fatura_Financeira Ffn on Ffn.IdRegistro_Financeiro = Rfn.IdRegistro_Financeiro
-Left Outer Join
-  cad_Moeda Mdo on Mdo.IdMoeda = Rfn.IdMoeda
+  cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Mfn.IdTipo_Transacao
 Left Outer Join
   cad_Pessoa Rcn on Rcn.IdPessoa = Mfn.IdResponsavel_Conciliacao
 Left Outer Join
-  cad_Pessoa Pss on Pss.IdPessoa = Rfn.IdPessoa
+  cad_Moeda Mdd on Mdd.IdMoeda = Mfn.IdMoeda
 Left Outer Join
-  cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Rfn.IdConta_Corrente`;
+  cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Mfn.IdConta_Corrente) Mfn
+  ${where}
+Order by
+  Mfn.IdMovimentacao_Financeira desc`;
+
+ console.log(sql)
 
 
   global.conn.request()

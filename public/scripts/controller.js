@@ -54,6 +54,87 @@ $(document).on('click', '.btn_filtros', function(e){
     $('.btn_confirma_filtro').attr('data-tipo', tipo)
 })
 
+$(document).on('click', '.btn_filtros_financeiro', function(e){
+    var tipo = $(this).data('tipo');
+    $('.btn_confirma_filtro_financeiro').attr('data-tipo', tipo)
+})
+
+
+$(document).on('click', '.btn_confirma_filtro_financeiro', function(e){
+    var tipo = $(this).attr('data-tipo');
+    var periodo = $('#filtro_periodo_financeiro').val()
+    var referencia = $('#filtro_referencia_financeiro').val()
+    var pessoa = $('#filtro_pessoa_financeiro').val()
+
+
+    $.ajax({
+        url : "/listagem_faturas",
+        type : 'GET',
+        data : {
+            tipo:tipo,
+            periodo : periodo,
+            referencia : referencia,
+            pessoa : pessoa
+        },
+        beforeSend : function(){
+           
+            
+        }
+    })
+    .done(function(data){
+        console.log(data)
+        $('.listprocessos').html('')
+        
+        data.forEach(element => {
+            console.log('data cconvertida', element.Data_Conciliacao_Convertido)
+
+            
+            let dataMovimentacao = new Date(element.Data_Conciliacao_Convertido)
+ 
+        dataMovimentacao.setDate(dataMovimentacao.getDate() + 1);
+        dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
+        console.log('data movimentao', dataMovimentacao)
+
+        if(element.Natureza == 1){
+        var icon = '<span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>';
+        var button_color = 'color-green-dark'
+
+        $('.icon_tipo_movimentacao').html(icon)
+        }else{
+        var button_color = 'color-red-dark'
+        var icon = '<span class="icon rounded-s me-2 gradient-red shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-24 color-white"></i></span>';
+
+        $('.icon_tipo_movimentacao').html(icon)
+        }
+
+
+
+        var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Financeira}" data-bs-target="#menu-activity-financeiro" href="#" class="d-flex pb-3 div_mov_financeira">
+        <div class="align-self-center">
+        ${icon}
+        </div>
+        <div class="align-self-center ps-1">
+        <h5 class="pt-1 mb-n1">${element.Pessoa.substring(0,20)}</h5>
+        <p class="mb-0 font-11 opacity-50">${element.Referencia}</p>
+        </div>
+        <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1 ${button_color}">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Sigla})}</h4>
+        <p class="mb-0 font-12 opacity-50">${dataMovimentacao}</p>
+        </div>
+        </a>`;
+
+   
+
+        $('.listprocessos').append(propostas)
+        });
+
+
+    })
+
+    // console.log(tipo, periodo, referencia, pessoa)
+
+
+})
 
 $(document).on('click', '.btn_confirma_filtro', function(e){
 console.log(e)
@@ -422,9 +503,9 @@ function atualizar_new_mov_financeira(ultimoid){
         $('.ultima_mov_financeira').html('')
             msg.forEach(element => {
 
-                let data = new Date(element.Data_Conciliacao_Convertido)
-                var dataMovimentacao = new Date();
-                dataMovimentacao.setDate(data.getDate() + 1);
+                let dataMovimentacao = new Date(element.Data_Conciliacao_Convertido)
+          
+                dataMovimentacao.setDate(dataMovimentacao.getDate() + 1);
                 dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
 
 
