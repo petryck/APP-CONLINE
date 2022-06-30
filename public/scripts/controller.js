@@ -35,13 +35,13 @@ $(document).on('click', '.menubar > a', function(e){
 })
 
 
-$(document).on('click', '.listprocessos > a', function(e){
+// $(document).on('click', '.listprocessos > a', function(e){
 
-    $('#menu-activity').removeClass('show');
+//     // $('#menu-activity').removeClass('show');
 
-    $('#menu-activity').addClass('show');
-    // OpenPage(page)
-})
+//     // $('#menu-activity').addClass('show');
+//     // OpenPage(page)
+// })
 
 $(document).on('click', '.btn_sair', function(e){
     localStorage.removeItem('info_usuario_sirius_os');
@@ -60,6 +60,77 @@ $(document).on('click', '.btn_filtros_financeiro', function(e){
 })
 
 
+$(document).on('click', '.btn_confirma_filtro_financeiro_pendentes', function(e){
+    var referencia = $('#filtro_referencia_financeiro_pendente').val()
+    var pessoa = $('#filtro_pessoa_financeiro_pendente').val()
+    var quantidade = $('#filtro_quantidade_financeiro').val()
+    var tipo = $(this).attr('data-tipo');
+    
+
+    $.ajax({
+        url : "/mov_financeira_pendente",
+        type : 'GET',
+        data : {
+            tipo:tipo,
+            quantidade:quantidade,
+            referencia : referencia,
+            pessoa : pessoa
+        },
+        beforeSend : function(){
+
+        }
+    })
+    .done(function(data){
+
+        $('.listprocessos').html('')
+        
+        data.forEach(element => {
+          
+
+            
+            let dataMovimentacao = new Date(element.DataConvertido)
+ 
+        dataMovimentacao.setDate(dataMovimentacao.getDate() + 1);
+        dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
+    
+
+        if(element.Natureza == 1){
+        var icon = '<span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>';
+        var button_color = 'color-green-dark'
+
+        $('.icon_tipo_movimentacao').html(icon)
+        }else{
+        var button_color = 'color-red-dark'
+        var icon = '<span class="icon rounded-s me-2 gradient-red shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-24 color-white"></i></span>';
+
+        $('.icon_tipo_movimentacao').html(icon)
+        }
+
+
+
+        var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdRegistro_Financeiro}" data-bs-target="#menu-activity-financeiro" href="#" class="d-flex pb-3 div_mov_financeira_new">
+        <div class="align-self-center">
+        ${icon}
+        </div>
+        <div class="align-self-center ps-1">
+        <h5 class="pt-1 mb-n1">${element.Pessoa.substring(0,20)}</h5>
+        <p class="mb-0 font-11 opacity-50">${element.Referencia}</p>
+        </div>
+        <div class="align-self-center ms-auto text-end">
+        <h4 class="pt-1 mb-n1 ${button_color}">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</h4>
+        <p class="mb-0 font-12 opacity-50">${dataMovimentacao}</p>
+        </div>
+        </a>`;
+
+   
+
+        $('.listprocessos').append(propostas)
+        });
+
+
+    })
+
+})
 $(document).on('click', '.btn_confirma_filtro_financeiro', function(e){
     var tipo = $(this).attr('data-tipo');
     var periodo = $('#filtro_periodo_financeiro').val()
@@ -82,7 +153,7 @@ $(document).on('click', '.btn_confirma_filtro_financeiro', function(e){
         }
     })
     .done(function(data){
-        console.log(data)
+      
         $('.listprocessos').html('')
         
         data.forEach(element => {
@@ -137,9 +208,9 @@ $(document).on('click', '.btn_confirma_filtro_financeiro', function(e){
 })
 
 $(document).on('click', '.btn_confirma_filtro', function(e){
-console.log(e)
+
     var tipo = $(this).attr('data-tipo');
-    console.log(tipo)
+
 
     var periodo = $('#filtro_periodo').val()
     var vendedor = $('#filtro_vendedor').val()
@@ -167,7 +238,7 @@ console.log(e)
         }
     })
     .done(function(data){
-        console.log(data)
+     
         $('.listprocessos').html('')
 
         data.forEach(element => {
@@ -212,7 +283,185 @@ console.log(e)
 })
 
 
+$(document).on('click', '.div_mov_financeira_new', function(e){
+    var id = $(this).attr('id');
+    $('#menu-activity-financeiro .pessoa').text('');
+    $('#menu-activity-financeiro .ResponsavelConciliacao').text('');
+    $('#menu-activity-financeiro .Referencia').text('');
+    $('#menu-activity-financeiro .data').text('');
+    $('#menu-activity-financeiro .tipoTransacao').text('');
+    $('#menu-activity-financeiro .contaCorrente').text('');
 
+
+    $.ajax({
+        url : "/info_mov_financeira_new",
+        type : 'GET',
+        data : {
+            referencia : id
+        },
+        beforeSend : function(){
+           
+            
+        }
+    })
+    .done(function(msg){
+        console.log(msg)
+ 
+        $('.valores_movimentacao').html('')
+        let dataMovimentacao = new Date(msg.DataConvertido)
+ 
+        dataMovimentacao.setDate(dataMovimentacao.getDate() + 1);
+        dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
+
+        if(msg.Natureza == 0){
+   
+        
+            var icon = `<span class="icon rounded-s me-2 gradient-red shadow-bg shadow-bg-xs">
+            <i class="bi bi-arrow-up font-24 color-white"></i>
+            </span>`;
+            $('.icon_tipo_movimentacao').html(icon)
+    
+        }else{
+            
+            var icon = `<span class="icon icon-l gradient-green shadow-bg shadow-bg-xs me-3">
+                            <i class="bi bi-arrow-down color-white"></i>
+                        </span>`;
+                        
+            $('.icon_tipo_movimentacao').html(icon)
+        }
+
+
+        $('#menu-activity-financeiro .pessoa').text(msg.Pessoa.substring(0,20));
+        $('#menu-activity-financeiro .Referencia').text(msg.Referencia);
+        $('#menu-activity-financeiro .data').text(dataMovimentacao);
+        $('#menu-activity-financeiro .tipoTransacao').text(msg.tipoTransacao);
+        $('#menu-activity-financeiro .contaCorrente').text(msg.ContaCorrente);
+
+             if(msg.Natureza == 1){
+                var valores = `<strong class="col-5 color-green-dark">Recebimento</strong>
+                                <strong class="col-7 text-end color-green-dark">${msg.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: msg.Moeda})}</strong>
+                                <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
+            }else{
+                var valores = `<strong class="col-5 color-red-dark">Pagamento</strong>
+                                <strong class="col-7 text-end color-red-dark">${msg.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: msg.Moeda})}</strong>
+                                <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
+                      
+            }
+
+            $('.valores_movimentacao').append(valores)
+        
+
+    
+    })
+    
+    
+
+
+
+})
+
+
+
+
+
+
+$(document).on('click', '.div_mov_financeira', function(e){
+    var id = $(this).attr('id');
+    $('#menu-activity-financeiro .pessoa').text('');
+    $('#menu-activity-financeiro .ResponsavelConciliacao').text('');
+    $('#menu-activity-financeiro .Referencia').text('');
+    $('#menu-activity-financeiro .data').text('');
+    $('#menu-activity-financeiro .tipoTransacao').text('');
+    $('#menu-activity-financeiro .contaCorrente').text('');
+
+
+    $.ajax({
+        url : "/info_mov_financeira",
+        type : 'GET',
+        data : {
+            referencia : id
+        },
+        beforeSend : function(){
+           
+            
+        }
+    })
+    .done(function(msg){
+ 
+
+        let dataMovimentacao = new Date(msg['infos'].Data_Conciliacao_Convertido)
+ 
+        dataMovimentacao.setDate(dataMovimentacao.getDate() + 1);
+        dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
+
+
+        $('#menu-activity-financeiro .pessoa').text(msg['infos'].Pessoa.substring(0,20));
+        $('#menu-activity-financeiro .ResponsavelConciliacao').text(msg['infos'].ResponsavelConciliacao);
+        $('#menu-activity-financeiro .Referencia').text(msg['infos'].Referencia);
+        $('#menu-activity-financeiro .data').text(dataMovimentacao);
+        $('#menu-activity-financeiro .tipoTransacao').text(msg['infos'].TipoTransacao);
+        $('#menu-activity-financeiro .contaCorrente').text(msg['infos'].ContaCorrente);
+        
+
+        $('.valores_movimentacao').html('')
+        profit = [];
+        profit['total'] = [];
+        msg['faturas'].forEach(element => {
+            
+    
+            
+            if(element.Natureza == 1){
+                var valores = `<strong class="col-5 color-green-dark">${element.Referencia_Fatura}</strong>
+                                <strong class="col-7 text-end color-green-dark">${element.Valor_Convertido.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
+                                <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
+            }else{
+                var valores = `<strong class="col-5 color-red-dark">${element.Referencia_Fatura}</strong>
+                                <strong class="col-7 text-end color-red-dark">${element.Valor_Convertido.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
+                                <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
+    
+            
+                                
+            }
+    
+            if(profit['total'][element.Moeda]){
+                profit['total'][element.Moeda] = profit['total'][element.Moeda] + element.Valor_Convertido;
+            }else{
+                profit['total'][element.Moeda] = element.Valor_Convertido;
+            }
+            
+    
+            $('.valores_movimentacao').append(valores)
+        });
+
+
+
+        for(var natureza in profit['total']) {
+
+            if(profit['total'][natureza] < 0){
+                color = 'color-red-dark'
+            }else{
+                color = 'color-white'
+            }
+    
+        
+            
+    
+        if(profit['total'][natureza] != 0){
+            var valores = `<strong class="col-5 color-white">TOTAL</strong>
+                        <strong class="col-7 text-end color-white">${profit['total'][natureza].toLocaleString('pt-br',{style: 'currency', currency: natureza})}</strong>
+                        <div class="col-12 mt-2 mb-2"></div>`;
+    
+        $('.valores_movimentacao').append(valores)
+        }
+            // console.log(profit['total'][natureza])
+        }
+    })
+    
+    
+
+
+
+})
 $(document).on('click', '.div_propostas', function(e){
 
     var id = $(this).attr('id')
@@ -230,7 +479,7 @@ $(document).on('click', '.div_propostas', function(e){
     }
 })
 .done(function(msg){
-    console.log(msg)
+ 
     let data = new Date(msg['infos'].Data_abertura_convertido)
                 var dataProposta = new Date();
                 dataProposta.setDate(data.getDate() + 1);
@@ -384,8 +633,6 @@ function OpenPage(page){
 
 var status_geral = localStorage.getItem('status_geral');
 
-console.log(localStorage.getItem('status_geral'))
-
     if(!page || status_geral == '0'){
         document['getElementsByClassName']('offline-message')[0]['classList']['add']('offline-message-active');
                     setTimeout(function() {
@@ -511,12 +758,7 @@ function atualizar_new_mov_financeira(ultimoid){
                 dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
 
 
-    $('#menu-activity-financeiro .pessoa').text('');
-    $('#menu-activity-financeiro .ResponsavelConciliacao').text('');
-    $('#menu-activity-financeiro .Referencia').text('');
-    $('#menu-activity-financeiro .data').text('');
-    $('#menu-activity-financeiro .tipoTransacao').text('');
-    $('#menu-activity-financeiro .contaCorrente').text('');
+   
 
          
 if(element.Natureza == 1){
@@ -547,12 +789,7 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Fina
     </div>
     </a>`;
 
-    $('#menu-activity-financeiro .pessoa').text(element.Pessoa.substring(0,20));
-    $('#menu-activity-financeiro .ResponsavelConciliacao').text(element.ResponsavelConciliacao);
-    $('#menu-activity-financeiro .Referencia').text(element.Referencia);
-    $('#menu-activity-financeiro .data').text(dataMovimentacao);
-    $('#menu-activity-financeiro .tipoTransacao').text(element.TipoTransacao);
-    $('#menu-activity-financeiro .contaCorrente').text(element.ContaCorrente);
+    
 
 
     $('.ultima_mov_financeira').append(propostas)

@@ -209,49 +209,6 @@
 <script>
 
 
-$('.listprocessos').html('')
-
-     $.ajax({
-        type: 'GET',
-        url: '/lista_propostas',
-        data:{tipo:'mes_atual', status:'Aprovada'},
-        contentType: 'application/json',
-        success: function (data) {
-            data.forEach(element => {
-                console.log(element)
-                let data = new Date(element.Data_abertura_convertido)
-                data.setDate(data.getDate() + 1);
-                data = data.toLocaleDateString("pt-US") 
-               
-
-    if(element.Tipo_Operacao == 1){
-        var icon = '<span class="icon rounded-s me-2 gradient-magenta shadow-bg shadow-bg-xs"><i class="bi bi-arrow-up font-24 color-white"></i></span>';
-    }else{
-        var icon = '<span class="icon rounded-s me-2 gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-arrow-down font-24 color-white"></i></span>';
-    }
-
-var processos = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" data-bs-target="#menu-activity" href="#" class="d-flex pb-3 div_propostas">
-    <div class="align-self-center">
-    ${icon}
-    </div>
-    <div class="align-self-center ps-1">
-        <h5 class="pt-1 mb-n1">${element.Cliente.substring(0,20)}</h5>
-        <p class="mb-0 font-11 opacity-50">${element.Vendedor}</p>
-    </div>
-    <div class="align-self-center ms-auto text-end">
-        <h4 class="pt-1 mb-n1 color-mint-dark">${element.Numero_Proposta}</h4>
-        <h6 class="pt-1 mb-n1 color-mint-dark">${element.Tipo_Carga}</h6>
-        <p class="mb-0 font-12 opacity-50">${data}</p>
-    </div>
-    </a>`;
-
-
-    $('.listprocessos').append(processos)
-
-            });
-        }
-    })
-
 
     $.ajax({
         type: 'GET',
@@ -277,9 +234,12 @@ var processos = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" da
 
                 });
 
-
+    $('.btn_confirma_filtro').attr('data-tipo', 'Aprovada')
+   $('.btn_confirma_filtro').click()
 
         }
      })
 
+
+     
 </script>

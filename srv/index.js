@@ -103,6 +103,7 @@ sql.connect(connStr).then(conn => {
   
   
     if(err){
+
       console.log('ERRO AO ACESSAR DB --> MYSQL')
     
     }else{
@@ -232,7 +233,7 @@ From
   vis_Painel_Proposta Ppr WHERE Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} ORDER BY IdOferta_Frete DESC`;
  }
 
-console.log(sql)
+
       global.conn.request()
       .query(sql)
       .then(result => {
@@ -332,12 +333,12 @@ app.get('/filtro_propostas', (req, res) => {
     var where = `WHERE Ppr.SituacaoProposta = '${tipo}'`;
   }
 
-  console.log(tipo)
+
   
   const date = new Date();
   const month = date.toLocaleString('default', { month: 'numeric' });
   const day = date.toLocaleString('default', { day: 'numeric' });
-  console.log('dia', day)
+ 
 
   // if(req.query.cliente != ''){
   //   where = '';
@@ -382,13 +383,6 @@ app.get('/filtro_propostas', (req, res) => {
     where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${periodo} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022`;
   }
 
-  
-
-  
-
-  console.log(req.query)
-
-  
 
   var sql = `Select
   Ppr.Data_abertura_convertido,
@@ -405,10 +399,6 @@ app.get('/filtro_propostas', (req, res) => {
 From
   vis_Painel_Proposta Ppr ${where} ORDER BY IdOferta_Frete DESC`;
 
-console.log(sql)
-
-
-
 
 
 
@@ -421,6 +411,243 @@ console.log(sql)
   })
 
 })
+
+app.get('/info_mov_financeira_new', (req, res) => {
+  var referencia = req.query.referencia;
+
+    var sql = `Select * FROM ( SELECT
+      Rfn.IdRegistro_Financeiro,
+      Rfn.Data,
+      Convert(varchar, Rfn.Data, 23) as DataConvertido,
+      Pss.Nome as Pessoa,
+      Rfn.Situacao, /*1-Em aberto // 2-Finalizado // 3-Cancelado // 4-Parcialmente quitado*/
+      Rfn.Historico_Resumo,
+      case
+        when Rfn.IdTipo_Transacao in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Administrativo'
+        When Rfn.IdTipo_Transacao not in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Baixa unificada'
+        Else Rfn.Referencia
+      end as Referencia,
+      Ccr.Nome as ContaCorrente,
+      Ttr.Nome as tipoTransacao,
+      Ffn.Data_Pagamento,
+      Convert(varchar, Ffn.Data_Pagamento, 23) as DataPagamento,
+      Rfn.Natureza, /*0-Pagamento // 1-Recebimento*/
+      Mdo.Sigla as Moeda,
+      Rfn.Valor_Original
+    From
+      mov_Registro_Financeiro Rfn
+    Left Outer Join
+      cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Rfn.IdTipo_Transacao
+    Left Outer Join
+      mov_Fatura_Financeira Ffn on Ffn.IdRegistro_Financeiro = Rfn.IdRegistro_Financeiro
+    Left Outer Join
+      cad_Moeda Mdo on Mdo.IdMoeda = Rfn.IdMoeda
+    Left Outer Join
+      cad_Pessoa Pss on Pss.IdPessoa = Rfn.IdPessoa
+    Left Outer Join
+      cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Rfn.IdConta_Corrente
+      ) Rfn
+      WHERE Rfn.IdRegistro_Financeiro = ${referencia}`;
+
+      global.conn.request()
+      .query(sql)
+      .then(result3 => {
+        res.json(result3.recordset[0])
+      })
+
+
+})
+app.get('/info_mov_financeira', (req, res) => {
+  var referencia = req.query.referencia;
+  var saida = {};
+  var sql = `Select top 30
+  *
+From (
+Select
+  Mfn.IdMovimentacao_Financeira,
+  Pss.Nome as Pessoa,
+  Mfn.Data_Conciliacao,
+  Convert(varchar, Mfn.Data_Conciliacao, 23) as Data_Conciliacao_Convertido,
+  case
+    when Mfn.IdTipo_Transacao in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Mfn.Referencia is null Then 'Administrativo'
+    When Mfn.IdTipo_Transacao not in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Mfn.Referencia is null Then 'Baixa unificada'
+    Else Mfn.Referencia end as Referencia,
+  Mfn.Natureza,
+  Mdd.Sigla,
+  Mfn.Valor_Original,
+  Rcn.Nome as ResponsavelConciliacao,
+  Ttr.Nome as TipoTransacao,
+  Ccr.Nome as ContaCorrente,
+  Case
+    When STUFF((SELECT '/ ' + Rfn.Referencia
+            From
+                mov_Movimentacao_Financeira_Categoria Mfc
+            Left Outer Join
+                mov_Fatura_Financeira_Categoria Ffc on Ffc.IdFatura_Financeira_Categoria = Mfc.IdFatura_Financeira_Categoria
+            Left Outer Join
+                mov_Fatura_Financeira Ffn on Ffn.IdFatura_Financeira = Ffc.IdFatura_Financeira
+            Left Outer Join
+                mov_Registro_Financeiro Rfn on Rfn.IdRegistro_Financeiro = Ffn.IdRegistro_Financeiro
+            Where
+              Mfc.IdMovimentacao_Financeira = Mfn.IdMovimentacao_Financeira FOR XML PATH ('')), 1, 1, '') is null Then 'Administrativo'
+    Else STUFF((SELECT '/ ' + Rfn.Referencia
+            From
+                mov_Movimentacao_Financeira_Categoria Mfc
+            Left Outer Join
+                mov_Fatura_Financeira_Categoria Ffc on Ffc.IdFatura_Financeira_Categoria = Mfc.IdFatura_Financeira_Categoria
+            Left Outer Join
+                mov_Fatura_Financeira Ffn on Ffn.IdFatura_Financeira = Ffc.IdFatura_Financeira
+            Left Outer Join
+                mov_Registro_Financeiro Rfn on Rfn.IdRegistro_Financeiro = Ffn.IdRegistro_Financeiro
+            Where
+              Mfc.IdMovimentacao_Financeira = Mfn.IdMovimentacao_Financeira FOR XML PATH ('')), 1, 1, '') end as FiltroReferencia
+From
+  mov_Movimentacao_Financeira Mfn
+Left Outer Join
+  cad_Pessoa Pss on Pss.IdPessoa = Mfn.IdPessoa
+Left Outer Join
+  cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Mfn.IdTipo_Transacao
+Left Outer Join
+  cad_Pessoa Rcn on Rcn.IdPessoa = Mfn.IdResponsavel_Conciliacao
+Left Outer Join
+  cad_Moeda Mdd on Mdd.IdMoeda = Mfn.IdMoeda
+Left Outer Join
+  cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Mfn.IdConta_Corrente) Mfn
+  WHERE Mfn.IdMovimentacao_Financeira = ${referencia}`;
+
+
+  global.conn.request()
+  .query(sql)
+  .then(result3 => {
+    
+    
+
+
+var sql = `Select
+            Mfc.IdMovimentacao_Financeira,
+            Mfc.Natureza /*0-Pagamento // 1-Recebimento*/,
+            Moe.Sigla as Moeda,
+            Mfc.Valor_Convertido,
+            Cfn.Nome as Categoria_Financeira,
+            Case
+              When Rfn.Referencia is null Then 'Administrativa'
+              Else Rfn.Referencia
+            End as Referencia_Fatura
+            From
+            mov_Movimentacao_Financeira_Categoria Mfc
+            Left Outer Join
+            cad_Categoria_Financeira Cfn on Cfn.IdCategoria_Financeira = Mfc.IdCategoria_Financeira
+            Left Outer Join
+            mov_Fatura_Financeira_Categoria Ffc on Ffc.IdFatura_Financeira_Categoria = Mfc.IdFatura_Financeira_Categoria
+            Left Outer Join
+            mov_Fatura_Financeira Ffn on Ffn.IdFatura_Financeira = Ffc.IdFatura_Financeira
+            Left Outer Join
+            mov_Registro_Financeiro Rfn on Rfn.IdRegistro_Financeiro = Ffn.IdRegistro_Financeiro
+            Left Outer Join
+            mov_Movimentacao_Financeira Mfn on Mfn.IdMovimentacao_Financeira = Mfc.IdMovimentacao_Financeira
+            Left Outer Join
+            cad_Moeda Moe on Moe.IdMoeda = Mfn.IdMoeda
+            WHERE Mfc.IdMovimentacao_Financeira = ${referencia}`;
+      
+            global.conn.request()
+            .query(sql)
+            .then(result4 => {
+              saida['infos'] = result3.recordset[0]
+              saida['faturas'] = result4.recordset
+
+              res.json(saida)
+            })
+
+
+    
+  })
+
+})
+
+
+
+app.get('/mov_financeira_pendente', (req, res) => {
+
+  const date = new Date();
+  const month = date.toLocaleString('default', { month: 'numeric' });
+  const day = date.toLocaleString('default', { day: 'numeric' });
+  const year = date.toLocaleString('default', { year: 'numeric' });
+
+
+
+
+  if(req.query.tipo == '1'){
+  var where = `WHERE Rfn.Situacao NOT IN (2,3)`;
+  }else{
+  var where = `WHERE Rfn.IdRegistro_Financeiro IS NOT NULL`;
+  }
+  
+  if(req.query.pessoa != '' && req.query.pessoa){
+    where += ` AND Pessoa LIKE '%${req.query.pessoa}%'`;
+  }
+
+  if(req.query.referencia != '' && req.query.referencia){
+    where += ` AND Referencia LIKE '%${req.query.referencia}%'`;
+  }
+
+  if(req.query.quantidade == 'tudo'){
+   var top = ``;
+  }else{
+    var top = `TOP ${req.query.quantidade}`;
+  }
+
+
+  
+
+
+  var sql = `Select ${top} * FROM ( SELECT
+    Rfn.IdRegistro_Financeiro,
+    Rfn.Data,
+    Convert(varchar, Rfn.Data, 23) as DataConvertido,
+    Pss.Nome as Pessoa,
+    Rfn.Situacao, /*1-Em aberto // 2-Finalizado // 3-Cancelado // 4-Parcialmente quitado*/
+    Rfn.Historico_Resumo,
+    case
+      when Rfn.IdTipo_Transacao in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Administrativo'
+      When Rfn.IdTipo_Transacao not in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Baixa unificada'
+      Else Rfn.Referencia
+    end as Referencia,
+    Ccr.Nome as ContaCorrente,
+    Ttr.Nome as tipoTransacao,
+    Ffn.Data_Pagamento,
+    Convert(varchar, Ffn.Data_Pagamento, 23) as DataPagamento,
+    Rfn.Natureza, /*0-Pagamento // 1-Recebimento*/
+    Mdo.Sigla as Moeda,
+    Rfn.Valor_Original
+  From
+    mov_Registro_Financeiro Rfn
+  Left Outer Join
+    cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Rfn.IdTipo_Transacao
+  Left Outer Join
+    mov_Fatura_Financeira Ffn on Ffn.IdRegistro_Financeiro = Rfn.IdRegistro_Financeiro
+  Left Outer Join
+    cad_Moeda Mdo on Mdo.IdMoeda = Rfn.IdMoeda
+  Left Outer Join
+    cad_Pessoa Pss on Pss.IdPessoa = Rfn.IdPessoa
+  Left Outer Join
+    cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Rfn.IdConta_Corrente
+    ) Rfn
+    ${where}
+    Order by
+    Rfn.IdRegistro_Financeiro desc`;
+
+    
+
+
+  global.conn.request()
+  .query(sql)
+  .then(result3 => {
+
+    res.json(result3.recordset)
+  })
+
+})
+
 
 
 app.get('/ultimas_propostas', (req, res) => {
@@ -609,7 +836,7 @@ Left Outer Join
 Order by
   Mfn.IdMovimentacao_Financeira desc`;
 
- console.log(sql)
+
 
 
   global.conn.request()
