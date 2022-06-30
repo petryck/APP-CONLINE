@@ -331,6 +331,8 @@ app.get('/filtro_propostas', (req, res) => {
   }else{
     var where = `WHERE Ppr.SituacaoProposta = '${tipo}'`;
   }
+
+  console.log(tipo)
   
   const date = new Date();
   const month = date.toLocaleString('default', { month: 'numeric' });
