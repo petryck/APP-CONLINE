@@ -167,11 +167,13 @@ console.log(e)
         }
     })
     .done(function(data){
+        console.log(data)
         $('.listprocessos').html('')
 
         data.forEach(element => {
 
             let data = new Date(element.Data_abertura_convertido)
+            data.setDate(data.getDate() + 1);
             data = data.toLocaleDateString("pt-US") 
 
             if(element.Tipo_Operacao == 1){

@@ -337,6 +337,7 @@ app.get('/filtro_propostas', (req, res) => {
   const date = new Date();
   const month = date.toLocaleString('default', { month: 'numeric' });
   const day = date.toLocaleString('default', { day: 'numeric' });
+  console.log('dia', day)
 
   // if(req.query.cliente != ''){
   //   where = '';
