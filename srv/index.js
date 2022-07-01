@@ -15,7 +15,7 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const port = 6053
+const port = 6888
 
 // var config = {  
 //     server: 'CONLINE.SQL.HEADCARGO.COM.BR',
@@ -436,7 +436,7 @@ app.get('/info_mov_financeira_new', (req, res) => {
       Rfn.Valor_Original
     From
       mov_Registro_Financeiro Rfn
-    Left Outer Join
+    Left Outer Join 
       cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Rfn.IdTipo_Transacao
     Left Outer Join
       mov_Fatura_Financeira Ffn on Ffn.IdRegistro_Financeiro = Rfn.IdRegistro_Financeiro
