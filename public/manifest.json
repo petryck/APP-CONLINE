@@ -4,7 +4,7 @@
 "name" : "Sirius PWA",
 "scope" : "https://app.conlinebr.com.br",
 "display" : "fullscreen",
-"start_url" : "/",
+"start_url" : "/home",
 "short_name" : "Sirius PWA",
 "description" : "",
 "orientation" : "portrait",
