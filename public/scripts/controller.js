@@ -238,6 +238,7 @@ $(document).on('click', '.btn_confirma_filtro', function(e){
         }
     })
     .done(function(data){
+        console.log(data)
      
         $('.listprocessos').html('')
 
@@ -480,9 +481,9 @@ $(document).on('click', '.div_propostas', function(e){
 })
 .done(function(msg){
  
-    let data = new Date(msg['infos'].Data_abertura_convertido)
-                var dataProposta = new Date();
-                dataProposta.setDate(data.getDate() + 1);
+    let dataProposta = new Date(msg['infos'].Data_abertura_convertido)
+                // var dataProposta = new Date();
+                dataProposta.setDate(dataProposta.getDate() + 1);
                 dataProposta = dataProposta.toLocaleDateString("pt-US") 
 
 
@@ -694,10 +695,18 @@ function atualizar_new_propostas(ultimoid){
         $('.mov_propostas').html('')
             msg.forEach(element => {
 
+                // let data = new Date(element.Data_abertura_convertido)
+                // var dataProposta = new Date();
+                // dataProposta.setDate(data.getDate() + 1);
+                // dataProposta = dataProposta.toLocaleDateString("pt-US") 
+
+
+
+
                 let data = new Date(element.Data_abertura_convertido)
-                var dataProposta = new Date();
-                dataProposta.setDate(data.getDate() + 1);
-                dataProposta = dataProposta.toLocaleDateString("pt-US") 
+                // var dataProposta = new Date();
+                data.setDate(data.getDate() +1 );
+                dataProposta = data.toLocaleDateString('pt-US', { year: 'numeric', month: '2-digit', day: '2-digit' })
                 
 
          

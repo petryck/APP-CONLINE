@@ -192,7 +192,7 @@ app.get('/lista_propostas', (req, res) => {
   const date = new Date();
   const month = date.toLocaleString('default', { month: 'numeric' });
   
-
+  
 
   if(req.query.status){
     var status = req.query.status;
@@ -338,7 +338,14 @@ app.get('/filtro_propostas', (req, res) => {
   const date = new Date();
   const month = date.toLocaleString('default', { month: 'numeric' });
   const day = date.toLocaleString('default', { day: 'numeric' });
- 
+  const year = date.toLocaleString('default', { year: 'numeric' });
+
+  //DATAS
+  var hoje = date.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+  var ontem = date.setDate(date.getDate() - 1);
+  var ontem = new Date(ontem);
+      ontem = ontem.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
   // if(req.query.cliente != ''){
   //   where = '';
@@ -354,11 +361,12 @@ app.get('/filtro_propostas', (req, res) => {
   if(req.query.vendedor != 'todos'){
     where += ` AND Ppr.IdVendedor = ${vendedor}`;
   }
-
+  ('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' })
   if(req.query.periodo == 'hoje'){
-    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Datepart(DAY, Ppr.Data_abertura_convertido) = ${day}`;
+    where += ` AND Ppr.Data_abertura_convertido = '${hoje}' `;
   }else if(req.query.periodo == 'ontem'){
-    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Datepart(DAY, Ppr.Data_abertura_convertido) = ${day-1}`;
+    
+    where += ` AND Ppr.Data_abertura_convertido = '${ontem}' `;
   }else if(req.query.periodo == 'esta_semana'){
 
     let splitedDate = dataAtualFormatada().split("-")
@@ -367,7 +375,7 @@ app.get('/filtro_propostas', (req, res) => {
     let yearDay = ((dateObj - firstDayYear) / 86400000)+1
     let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
     
-    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Case When (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) = 0 Then 52 else (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) End = ${weekInYear}`;
+    where += ` AND Datepart(YEAR, Ppr.Data_abertura_convertido) = ${year} AND Case When (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) = 0 Then 52 else (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) End = ${weekInYear-1}`;
   }else if(req.query.periodo == 'semana_passada'){
     console.log('esta semana')
     let splitedDate = dataAtualFormatada().split("-")
@@ -376,11 +384,11 @@ app.get('/filtro_propostas', (req, res) => {
     let yearDay = ((dateObj - firstDayYear) / 86400000)+1
     let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
     
-    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${month} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022 AND Case When (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) = 0 Then 52 else (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) End = ${weekInYear-1}`;
+    where += ` AND Datepart(YEAR, Ppr.Data_abertura_convertido) = ${year} AND Case When (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) = 0 Then 52 else (Datepart(WEEK, Ppr.Data_abertura_convertido) - 1) End = ${weekInYear-2}`;
   }else if(req.query.periodo == 'todas'){
   
   }else{
-    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${periodo} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = 2022`;
+    where += ` AND Datepart(MONTH, Ppr.Data_abertura_convertido) = ${periodo} AND Datepart(YEAR, Ppr.Data_abertura_convertido) = ${year}`;
   }
 
 
@@ -399,7 +407,7 @@ app.get('/filtro_propostas', (req, res) => {
 From
   vis_Painel_Proposta Ppr ${where} ORDER BY IdOferta_Frete DESC`;
 
-
+console.log(sql)
 
 
 
@@ -735,6 +743,15 @@ app.get('/listagem_faturas', (req, res) => {
   const day = date.toLocaleString('default', { day: 'numeric' });
   const year = date.toLocaleString('default', { year: 'numeric' });
 
+
+
+    //DATAS
+    var hoje = date.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+    var ontem = date.setDate(date.getDate() - 1);
+    var ontem = new Date(ontem);
+        ontem = ontem.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
   if(tipo == 'Todas'){
     var where = `WHERE Mfn.IdMovimentacao_Financeira IS NOT NULL`;
   }else{
@@ -751,9 +768,9 @@ app.get('/listagem_faturas', (req, res) => {
 
 
   if(req.query.periodo == 'hoje'){
-    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Datepart(DAY, Mfn.Data_Conciliacao) = ${day}`;
+    where += ` AND Mfn.Data_Conciliacao = '${hoje}'`;
   }else if(req.query.periodo == 'ontem'){
-    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Datepart(DAY, Mfn.Data_Conciliacao) = ${day-1}`;
+    where += ` AND Mfn.Data_Conciliacao = ${ontem}`;
   }else if(req.query.periodo == 'esta_semana'){
 
     let splitedDate = dataAtualFormatada().split("-")
@@ -762,7 +779,7 @@ app.get('/listagem_faturas', (req, res) => {
     let yearDay = ((dateObj - firstDayYear) / 86400000)+1
     let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
     
-    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Case When (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) = 0 Then 52 else (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) End = ${weekInYear}`;
+    where += ` AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Case When (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) = 0 Then 52 else (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) End = ${weekInYear-1}`;
   }else if(req.query.periodo == 'semana_passada'){
     console.log('esta semana')
     let splitedDate = dataAtualFormatada().split("-")
@@ -771,7 +788,7 @@ app.get('/listagem_faturas', (req, res) => {
     let yearDay = ((dateObj - firstDayYear) / 86400000)+1
     let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
     
-    where += ` AND Datepart(MONTH, Mfn.Data_Conciliacao) = ${month} AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Case When (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) = 0 Then 52 else (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) End = ${weekInYear-1}`;
+    where += `  AND Datepart(YEAR, Mfn.Data_Conciliacao) = ${year} AND Case When (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) = 0 Then 52 else (Datepart(WEEK, Mfn.Data_Conciliacao) - 1) End = ${weekInYear-2}`;
   }else if(req.query.periodo == 'todas'){
   
   }else{
