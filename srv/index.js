@@ -469,6 +469,7 @@ console.log(sql)
 
 app.get('/info_mov_financeira_new', (req, res) => {
   var referencia = req.query.referencia;
+  var saida = {};
 
     var sql = `Select * FROM ( SELECT
       Rfn.IdRegistro_Financeiro,
@@ -507,15 +508,66 @@ app.get('/info_mov_financeira_new', (req, res) => {
       global.conn.request()
       .query(sql)
       .then(result3 => {
-        res.json(result3.recordset[0])
+
+
+        var sql = `Select * FROM ( SELECT
+          Rfn.IdRegistro_Financeiro,
+          Rfn.Data,
+          Convert(varchar, Rfn.Data, 23) as DataConvertido,
+          Pss.Nome as Pessoa,
+          Rfn.Situacao, /*1-Em aberto // 2-Finalizado // 3-Cancelado // 4-Parcialmente quitado*/
+          Rfn.Historico_Resumo,
+          case
+            when Rfn.IdTipo_Transacao in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Administrativo'
+            When Rfn.IdTipo_Transacao not in (23,30,32,33,34,36,37,39,41,42,43,44,45) and Rfn.Referencia is null Then 'Baixa unificada'
+            Else Rfn.Referencia
+          end as Referencia,
+          Ccr.Nome as ContaCorrente,
+          Ttr.Nome as tipoTransacao,
+          Ffn.Data_Pagamento,
+          Convert(varchar, Ffn.Data_Pagamento, 23) as DataPagamento,
+          Rfn.Natureza, /*0-Pagamento // 1-Recebimento*/
+          Mdo.Sigla as Moeda,
+          Rfn.Valor_Original
+        From
+          mov_Registro_Financeiro Rfn
+        Left Outer Join
+          cad_Tipo_Transacao Ttr on Ttr.IdTipo_Transacao = Rfn.IdTipo_Transacao
+        Left Outer Join
+          mov_Fatura_Financeira Ffn on Ffn.IdRegistro_Financeiro = Rfn.IdRegistro_Financeiro
+        Left Outer Join
+          cad_Moeda Mdo on Mdo.IdMoeda = Rfn.IdMoeda
+        Left Outer Join
+          cad_Pessoa Pss on Pss.IdPessoa = Rfn.IdPessoa
+        Left Outer Join
+          cad_Conta_Corrente Ccr on Ccr.IdConta_Corrente = Rfn.IdConta_Corrente
+          ) Rfn
+          WHERE Referencia LIKE '%${result3.recordset[0].Referencia}%'
+          Order by
+          Rfn.IdRegistro_Financeiro desc`;
+
+           
+      
+            global.conn.request()
+            .query(sql)
+            .then(result4 => {
+              saida['infos'] = result3.recordset[0]
+              saida['faturas'] = result4.recordset
+
+              res.json(saida)
+            })
+
+            
+        // res.json(result3.recordset[0])
       })
 
 
 })
+
 app.get('/info_mov_financeira', (req, res) => {
   var referencia = req.query.referencia;
   var saida = {};
-  var sql = `Select top 30
+  var sql = `Select
   *
 From (
 Select

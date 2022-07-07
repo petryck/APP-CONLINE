@@ -309,12 +309,12 @@ $(document).on('click', '.div_mov_financeira_new', function(e){
         console.log(msg)
  
         $('.valores_movimentacao').html('')
-        let dataMovimentacao = new Date(msg.DataConvertido)
+        let dataMovimentacao = new Date(msg['infos'].DataConvertido)
  
         dataMovimentacao.setDate(dataMovimentacao.getDate() + 1);
         dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
 
-        if(msg.Natureza == 0){
+        if(msg['infos'].Natureza == 0){
    
         
             var icon = `<span class="icon rounded-s me-2 gradient-red shadow-bg shadow-bg-xs">
@@ -332,24 +332,78 @@ $(document).on('click', '.div_mov_financeira_new', function(e){
         }
 
 
-        $('#menu-activity-financeiro .pessoa').text(msg.Pessoa.substring(0,20));
-        $('#menu-activity-financeiro .Referencia').text(msg.Referencia);
+        $('#menu-activity-financeiro .pessoa').text(msg['infos'].Pessoa.substring(0,20));
+        $('#menu-activity-financeiro .Referencia').text(msg['infos'].Referencia);
         $('#menu-activity-financeiro .data').text(dataMovimentacao);
-        $('#menu-activity-financeiro .tipoTransacao').text(msg.tipoTransacao);
-        $('#menu-activity-financeiro .contaCorrente').text(msg.ContaCorrente);
+        $('#menu-activity-financeiro .tipoTransacao').text(msg['infos'].tipoTransacao);
+        $('#menu-activity-financeiro .contaCorrente').text(msg['infos'].ContaCorrente);
 
-             if(msg.Natureza == 1){
+             if(msg['infos'].Natureza == 1){
                 var valores = `<strong class="col-5 color-green-dark">Recebimento</strong>
-                                <strong class="col-7 text-end color-green-dark">${msg.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: msg.Moeda})}</strong>
+                                <strong class="col-7 text-end color-green-dark">${msg['infos'].Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: msg['infos'].Moeda})}</strong>
                                 <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
             }else{
                 var valores = `<strong class="col-5 color-red-dark">Pagamento</strong>
-                                <strong class="col-7 text-end color-red-dark">${msg.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: msg.Moeda})}</strong>
+                                <strong class="col-7 text-end color-red-dark">${msg['infos'].Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: msg['infos'].Moeda})}</strong>
                                 <div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>`;
                       
             }
 
             $('.valores_movimentacao').append(valores)
+
+
+            $('.valores_movimentacao_processo').html('')
+            
+            msg['faturas'].forEach(element => {
+
+/*1-Em aberto // 2-Finalizado // 3-Cancelado // 4-Parcialmente quitado*/
+                if(element.Situacao == 1){
+                    var siatuacao = 'Em aberto'
+                }else if(element.Situacao == 2){
+                    var siatuacao = 'Finalizado'
+                }else if(element.Situacao == 3){
+                    var siatuacao = 'Cancelado'
+                }else if(element.Situacao == 4){
+                    var siatuacao = 'Parc. quitado'
+                }
+
+                if(element.Natureza == 0){
+                    var valores_new = `<a href="#" class="d-flex py-1">
+                                        <div class="align-self-center ps-1">
+                                        <strong class="pt-1 mb-n1 color-red-dark">${element.Pessoa.substring(0,20)}</strong>
+                                        </div>
+                                        <div class="align-self-center ms-auto text-end">
+                                        <strong class="pt-1 mb-n1 color-red-dark">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
+                                        <p class="mb-0 font-11">${siatuacao}</p>
+                                        </div>
+                                        </a>
+                                    <div class="col-12 mt-2 mb-2">
+                                    <div class="divider my-0"></div>
+                                    </div>`;
+                }else{
+                    var valores_new = `<a href="#" class="d-flex py-1">
+                                        <div class="align-self-center ps-1">
+                                        <strong class="pt-1 mb-n1 color-green-dark">${element.Pessoa.substring(0,20)}</strong>
+                                        </div>
+                                        <div class="align-self-center ms-auto text-end">
+                                        <strong class="pt-1 mb-n1 color-green-dark">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
+                                        <p class="mb-0 font-11">${siatuacao}</p>
+                                        </div>
+                                        </a>
+                                    <div class="col-12 mt-2 mb-2">
+                                    <div class="divider my-0"></div>
+                                    </div>`;
+                          
+                }
+    
+                if(msg['infos'].Natureza != element.Natureza && msg['infos'].Valor_Original != element.Valor_Original){
+                    $('.valores_movimentacao_processo').append(valores_new)
+                }
+                
+                
+            });
+
+            
         
 
     
