@@ -40,10 +40,11 @@
     </div>
     
 <div class="row text-center">
+    <h1 class="font-22 pt-3">Resumo de Metas</h1>  
         <div class="col-6 mb-n2">
         <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-information" class="card card-style me-0 metas_diaria_semanal" style="height:180px">
         <div class="card-center">
-        <span class="icon icon-xl rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-clock font-24 color-white"></i></span>
+        <span class="icon icon-xl rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-calendar font-24 color-white"></i></span>
         <h1 class="font-22 pt-3">Diária e<br>Semanal</h1>
         </div>
         <div class="card-bottom">
@@ -54,7 +55,7 @@
         <div class="col-6 mb-n2">
         <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-metas_mensal_selecao_modal" class="card card-style ms-0" style="height:180px">
         <div class="card-center">
-        <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-clock font-24 color-white"></i></span>
+        <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-calendar2-event font-24 color-white"></i></span>
         <h1 class="font-22 pt-3">Mensal</h1>
         </div>
         <div class="card-bottom">
@@ -68,7 +69,7 @@
     <div class="col-6 mb-n2">
     <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-metas_financeiro_selecao" class="card card-style me-0" style="height:180px">
     <div class="card-center">
-    <span class="icon icon-xl rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-clock font-24 color-white"></i></span>
+    <span class="icon icon-xl rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-clipboard-data font-24 color-white"></i></span>
     <h1 class="font-22 pt-3">Financeiro</h1>
     </div>
     <div class="card-bottom">
@@ -97,19 +98,82 @@
       
         </div>
         </div>
-        <center><h3>Metas Diário</h3></center>
+        <center><h3>Meta Diária</h3></center> 
+        <div class="card card-style">
+          <div class="content">
+          <div class="d-flex">
+          <div>
+          <h6 class="opacity-30 mb-n1">Importação</h6>
+          <h3 class="mb-2">Aérea</h3>
+          </div>
+          <div class="align-self-end ms-auto">
+          <h3 class="mb-2 number_ia_diario"></h3>
+          </div>
+          </div>
+          <div class="progress rounded-xs bg-theme border border-blue-light" style="height:35px">
+          <div class="progress-bar gradient-magenta text-start ps-3 font-600 font-10 porcentagem_ia_diario" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+          78%
+          </div>
+          </div>
+          <div class="d-flex mt-3">
+          <div>
+          <h6 class="opacity-30 mb-n1">Importação</h6>
+          <h3 class="mb-2">Marítima</h3>
+          </div>
+          <div class="align-self-end ms-auto">
+          <h3 class="mb-2 number_im_diario"></h3>
+          </div>
+          </div>
+          <div class="progress rounded-xs bg-theme border border-green-light" style="height:35px">
+          <div class="progress-bar gradient-magenta text-start ps-3 font-600 font-10 porcentagem_im_diario" role="progressbar" style="width: 85%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+          85%
+          </div>
+          </div>
+          <div class="d-flex mt-3">
+          <div>
+          <h6 class="opacity-30 mb-n1">Exportação</h6>
+          <h3 class="mb-2">Aérea</h3>
+          </div>
+          <div class="align-self-end ms-auto">
+          <h3 class="mb-2 number_ea_diario"></h3>
+          </div>
+          </div>
+          <div class="progress rounded-xs bg-theme border border-yellow-light" style="height:35px">
+          <div class="progress-bar gradient-green text-start ps-3 font-600 font-10 porcentagem_ea_diario" role="progressbar" style="width: 53%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          53%
+          </div>
+          </div>
+  
+          <div class="d-flex mt-3">
+              <div>
+              <h6 class="opacity-30 mb-n1">Exportação</h6>
+              <h3 class="mb-2">Marítima</h3>
+              </div>
+              <div class="align-self-end ms-auto">
+              <h3 class="mb-2 number_em_diario">07/08</h3>
+              </div>
+              </div>
+              <div class="progress rounded-xs bg-theme border border-yellow-light" style="height:35px">
+              <div class="progress-bar gradient-green text-start ps-3 font-600 font-10 porcentagem_em_diario" role="progressbar" style="width: 53%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              53%
+              </div>
+              </div>
+  
+          </div>
+          </div>
+        <center><h3>Meta Semanal</h3></center>
         <div class="content mt-0">
    
         <div class="row text-center">
             <div class="col-6 mb-n2">
             <a href="#" class="card card-style me-0" style="height:170px">
             <div class="card-top mt-4">
-            <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
+            <span class="icon icon-l rounded-m gradient-magenta shadow-bg shadow-bg-xs"><i class="flaticon-air-freight font-24 color-white"></i></span>
             <h1 class="font-22 pt-3 line-height-m">Imp. Aérea</h1>
             </div>
             <div class="card-bottom mx-3 mb-3">
             <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
-            <div class="progress-bar gradient-green text-start ps-3 font-600 font-10" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar gradient-magenta text-start ps-3 font-600 font-10 meta_semanal_ia" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
             84%
             </div>
             </div>
@@ -119,12 +183,12 @@
             <div class="col-6 mb-n2">
             <a href="#" class="card card-style ms-0" style="height:170px">
             <div class="card-top mt-4">
-            <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
+            <span class="icon icon-xl rounded-m gradient-magenta shadow-bg shadow-bg-xs"><i class="flaticon-cruise font-24 color-white"></i></span>
             <h1 class="font-22 pt-3">Imp. Marítima</h1>
             </div>
             <div class="card-bottom mx-3 mb-3">
             <div class="progress rounded-xs bg-theme border border-blue-light" style="height:20px">
-            <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: 64%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar gradient-magenta text-start ps-3 font-600 font-10 meta_semanal_im" role="progressbar" style="width: 64%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
             64%
             </div>
             </div>
@@ -137,12 +201,12 @@
         <div class="col-6 mb-n2">
         <a href="#" class="card card-style me-0" style="height:170px">
         <div class="card-top mt-4">
-        <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
+        <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="flaticon-air-freight font-24 color-white"></i></span>
         <h1 class="font-22 pt-3 line-height-m">Exp. Aérea</h1>
         </div>
         <div class="card-bottom mx-3 mb-3">
         <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
-        <div class="progress-bar gradient-green text-start ps-3 font-600 font-10" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar gradient-green text-start ps-3 font-600 font-10 meta_semanal_ea" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
         84%
         </div>
         </div>
@@ -152,12 +216,12 @@
         <div class="col-6 mb-n2">
         <a href="#" class="card card-style ms-0" style="height:170px">
         <div class="card-top mt-4">
-        <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
+        <span class="icon icon-xl rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="flaticon-cruise font-24 color-white"></i></span>
         <h1 class="font-22 pt-3">Exp. Marítima</h1>
         </div>
         <div class="card-bottom mx-3 mb-3">
         <div class="progress rounded-xs bg-theme border border-blue-light" style="height:20px">
-        <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: 64%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar gradient-green text-start ps-3 font-600 font-10 meta_semanal_em" role="progressbar" style="width: 64%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
         64%
         </div>
         </div>
@@ -166,69 +230,7 @@
         </div>
         
   </div>
-  <center><h3>Metas Semanal</h3></center> 
-      <div class="card card-style">
-        <div class="content">
-        <div class="d-flex">
-        <div>
-        <h6 class="opacity-30 mb-n1">Importação</h6>
-        <h3 class="mb-2">Aérea</h3>
-        </div>
-        <div class="align-self-end ms-auto">
-        <h3 class="mb-2">07/08</h3>
-        </div>
-        </div>
-        <div class="progress rounded-xs bg-theme border border-blue-light" style="height:35px">
-        <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
-        78%
-        </div>
-        </div>
-        <div class="d-flex mt-3">
-        <div>
-        <h6 class="opacity-30 mb-n1">Importação</h6>
-        <h3 class="mb-2">Marítima</h3>
-        </div>
-        <div class="align-self-end ms-auto">
-        <h3 class="mb-2">07/08</h3>
-        </div>
-        </div>
-        <div class="progress rounded-xs bg-theme border border-green-light" style="height:35px">
-        <div class="progress-bar gradient-green text-start ps-3 font-600 font-10" role="progressbar" style="width: 85%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
-        85%
-        </div>
-        </div>
-        <div class="d-flex mt-3">
-        <div>
-        <h6 class="opacity-30 mb-n1">Exportação</h6>
-        <h3 class="mb-2">Aérea</h3>
-        </div>
-        <div class="align-self-end ms-auto">
-        <h3 class="mb-2">07/08</h3>
-        </div>
-        </div>
-        <div class="progress rounded-xs bg-theme border border-yellow-light" style="height:35px">
-        <div class="progress-bar gradient-yellow text-start ps-3 font-600 font-10" role="progressbar" style="width: 53%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-        53%
-        </div>
-        </div>
-
-        <div class="d-flex mt-3">
-            <div>
-            <h6 class="opacity-30 mb-n1">Exportação</h6>
-            <h3 class="mb-2">Marítima</h3>
-            </div>
-            <div class="align-self-end ms-auto">
-            <h3 class="mb-2">07/08</h3>
-            </div>
-            </div>
-            <div class="progress rounded-xs bg-theme border border-yellow-light" style="height:35px">
-            <div class="progress-bar gradient-yellow text-start ps-3 font-600 font-10" role="progressbar" style="width: 53%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-            53%
-            </div>
-            </div>
-
-        </div>
-        </div>
+ 
       
  
     
@@ -257,7 +259,7 @@
                 <div class="col-6 mb-n2">
                 <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="impo_aerea" class="card card-style me-0 btn_metas_mensal" style="height:170px">
                 <div class="card-top mt-4">
-                <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
+                <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="flaticon-air-freight font-24 color-white"></i></span>
                 <h1 class="font-22 pt-3 line-height-m">Imp. Aérea</h1>
                 </div>
                 <div class="card-bottom mx-3 mb-3">
@@ -272,7 +274,7 @@
                 <div class="col-6 mb-n2">
                 <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="impo_maritima" class="card card-style ms-0 btn_metas_mensal" style="height:170px">
                 <div class="card-top mt-4">
-                <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
+                <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="flaticon-cruise font-24 color-white"></i></span>
                 <h1 class="font-22 pt-3">Imp. Marítima</h1>
                 </div>
                 <div class="card-bottom mx-3 mb-3">
@@ -290,7 +292,7 @@
             <div class="col-6 mb-n2">
             <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="expo_aerea" class="card card-style me-0 btn_metas_mensal" style="height:170px">
             <div class="card-top mt-4">
-            <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
+            <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="flaticon-air-freight font-24 color-white"></i></span>
             <h1 class="font-22 pt-3 line-height-m">Exp. Aérea</h1>
             </div>
             <div class="card-bottom mx-3 mb-3">
@@ -305,7 +307,7 @@
             <div class="col-6 mb-n2">
             <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="expo_maritima" class="card card-style ms-0 btn_metas_mensal" style="height:170px">
             <div class="card-top mt-4">
-            <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
+            <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="flaticon-cruise font-24 color-white"></i></span>
             <h1 class="font-22 pt-3">Exp. Marítima</h1>
             </div>
             <div class="card-bottom mx-3 mb-3">
@@ -341,7 +343,7 @@
                     <div class="col-6 mb-n2">
                     <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-meta="1" data-filial="itj" data-tipo="impo_aerea" class="card card-style me-0 btn_metas_anual_financeiro" style="height:170px">
                     <div class="card-top mt-4">
-                    <span class="icon icon-l rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%)"><i class="bi bi-truck font-24 color-white"></i></span>
+                    <span class="icon icon-l rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%)"><i class="bi bi-emoji-smile font-24 color-white"></i></span>
                     <h1 class="font-22 pt-3 line-height-m">BRONZE</h1>
                     </div>
                     <div class="card-bottom mx-3 mb-3">
@@ -356,7 +358,7 @@
                     <div class="col-6 mb-n2">
                     <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-meta="2" data-filial="itj"  class="card card-style ms-0 btn_metas_anual_financeiro" style="height:170px">
                     <div class="card-top mt-4">
-                    <span class="icon icon-xl rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%);"><i class="bi bi-house font-24 color-white"></i></span>
+                    <span class="icon icon-xl rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%);"><i class="bi bi-emoji-heart-eyes font-24 color-white"></i></span>
                     <h1 class="font-22 pt-3">PRATA</h1>
                     </div>
                     <div class="card-bottom mx-3 mb-3">
@@ -374,7 +376,7 @@
                 <div class="col-6 mb-n2">
                 <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-meta="3" data-filial="itj" class="card card-style me-0 btn_metas_anual_financeiro" style="height:170px">
                 <div class="card-top mt-4">
-                <span class="icon icon-l rounded-m  shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);"><i class="bi bi-truck font-24 color-white"></i></span>
+                <span class="icon icon-l rounded-m  shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);"><i class="bi bi-emoji-sunglasses font-24 color-white"></i></span>
                 <h1 class="font-22 pt-3 line-height-m">OURO</h1>
                 </div>
                 <div class="card-bottom mx-3 mb-3">
@@ -389,7 +391,7 @@
                 <div class="col-6 mb-n2">
                 <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-filial="itj"class="card card-style ms-0 btn_metas_anual_financeiro_hoje" style="height:170px">
                 <div class="card-top mt-4">
-                <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
+                <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-flag-fill font-24 color-white"></i></span>
                 <h1 class="font-22 pt-3">HOJE</h1>
                 </div>
                 </a>

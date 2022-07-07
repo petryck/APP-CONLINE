@@ -1135,6 +1135,59 @@ app.get('/meta_anual_hoje', (req, res) => {
   
 
   })
+
+
+  app.get('/Metas_semanal', (req, res) => {
+    var date = new Date();
+    var month = date.toLocaleString('default', { month: 'numeric' });
+    var day = date.toLocaleString('default', { day: 'numeric' });
+    var year = date.toLocaleString('default', { year: 'numeric' });
+
+      let splitedDate = dataAtualFormatada().split("-")
+      let dateObj = new Date(+splitedDate[0], +splitedDate[1]-1, +splitedDate[2], 0,0,0,0 )
+      let firstDayYear = new Date(+splitedDate[0],0,1,0,0,0,0 )
+      let yearDay = ((dateObj - firstDayYear) / 86400000)+1
+      let weekInYear = +(String((yearDay + firstDayYear.getDay()+1) / 7).split(".")[0])
+   
+
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+        if(req.query.filial == 'itj'){
+
+          global.conn.request()
+          .query(`SELECT * FROM vis_Metas_Semanal_ITJ WHERE Semana_Abertura = ${weekInYear} AND Ano_Abertura = ${year}`)
+          .then(result => {
+        
+            res.json(result.recordset[0])
+          })
+          .catch(err => {
+            console.log(err)
+            return err;
+          });
+
+        }else if(req.query.filial == 'nh'){
+
+          global.conn.request()
+          .query(`SELECT * FROM vis_Metas_Semanal_NH WHERE Semana_Abertura = ${weekInYear} AND Ano_Abertura = ${year}`)
+          .then(result => {
+        
+            res.json(result.recordset[0])
+          })
+          .catch(err => {
+            console.log(err)
+            return err;
+          });
+
+        }
+   
+
+  
+
+  })
  
 
   async function PQuery(){

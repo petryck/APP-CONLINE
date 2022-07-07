@@ -575,6 +575,7 @@ $(document).on('click', '.btn_metas_mensal', function(e){
 // })
 
 
+
 $(document).on('click', '.metas_diaria_semanal', function(e){
 
     if(infos_users_app.filial == 1){
@@ -595,21 +596,76 @@ $(document).on('click', '.metas_diaria_semanal', function(e){
         
     }
 })
-.done(function(msg){
+.done(function(data){
 
-    console.log(msg)
+ 
 
   
+    $('.number_im_diario').text(data.IM +'/'+ data.IM_Meta)
+    $('.number_ia_diario').text(data.IA +'/'+ data.IA_Meta)
+    $('.number_ea_diario').text(data.EA +'/'+ data.EA_Meta)
+    $('.number_em_diario').text(data.EM +'/'+ data.EM_Meta)
+
+    $('.porcentagem_ia_diario').css('width', data.Porcentagem_IA+'%')
+    $('.porcentagem_im_diario').css('width', data.Porcentagem_IM+'%')
+    $('.porcentagem_ea_diario').css('width', data.Porcentagem_EA+'%')
+    $('.porcentagem_em_diario').css('width', data.Porcentagem_EM+'%')
+
+    $('.porcentagem_ia_diario').text(data.Porcentagem_IA+'%')
+    $('.porcentagem_im_diario').text(data.Porcentagem_IM+'%')
+    $('.porcentagem_ea_diario').text(data.Porcentagem_EA+'%')
+    $('.porcentagem_em_diario').text(data.Porcentagem_EM+'%')
     
 
 
  
-
+    metas_semanal_query(filial)
 
 })
 
 
 })   
+
+
+function metas_semanal_query(filial){
+
+    $.ajax({
+        url : "/Metas_semanal",
+        type : 'GET',
+        dataType: "json",
+        data : {
+            filial: filial
+        },
+        beforeSend : function(){
+           
+            
+        }
+    })
+    .done(function(data){
+    
+        console.log(data)
+ 
+    
+        $('.meta_semanal_ia').css('width', data.Porcentagem_IA+'%')
+        $('.meta_semanal_im').css('width', data.Porcentagem_IM+'%')
+        $('.meta_semanal_ea').css('width', data.Porcentagem_EA+'%')
+        $('.meta_semanal_em').css('width', data.Porcentagem_EM+'%')
+    
+        $('.meta_semanal_ia').text(data.Porcentagem_IA+'%')
+        $('.meta_semanal_im').text(data.Porcentagem_IM+'%')
+        $('.meta_semanal_ea').text(data.Porcentagem_EA+'%')
+        $('.meta_semanal_em').text(data.Porcentagem_EM+'%')
+        
+    
+    
+    })
+    
+
+}
+
+
+
+
 $(document).on('click', '.btn_metas_anual_financeiro_hoje', function(e){
 
     var filial = $(this).attr('data-filial');
@@ -636,7 +692,7 @@ var corpo = `<div class="row text-center">
                                     <div class="col-6 mb-n2">
                                     <a href="#"  data-tipo="impo_aerea" class="card card-style me-0 " style="height:170px">
                                     <div class="card-top mt-4">
-                                    <span class="icon icon-l rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%);"><i class="bi bi-truck font-24 color-white"></i></span>
+                                    <span class="icon icon-l rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%);"><i class="bi bi-emoji-smile font-24 color-white"></i></span>
                                     <h1 class="font-22 pt-3 line-height-m">BRONZE</h1>
                                     </div>
                                     <div class="card-bottom mx-3 mb-3">
@@ -651,7 +707,7 @@ var corpo = `<div class="row text-center">
                                     <div class="col-6 mb-n2">
                                     <a href="#"  data-meta="2"  class="card card-style ms-0" style="height:170px">
                                     <div class="card-top mt-4">
-                                    <span class="icon icon-xl rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%);"><i class="bi bi-house font-24 color-white"></i></span>
+                                    <span class="icon icon-xl rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%);"><i class="bi bi-emoji-heart-eyes font-24 color-white"></i></span>
                                     <h1 class="font-22 pt-3">PRATA</h1>
                                     </div>
                                     <div class="card-bottom mx-3 mb-3">
@@ -668,7 +724,7 @@ var corpo = `<div class="row text-center">
                                     <div class="col-6 mb-n2">
                                     <a href="#" class="card card-style me-0" style="height:170px">
                                     <div class="card-top mt-4">
-                                    <span class="icon icon-l rounded-m  shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);"><i class="bi bi-truck font-24 color-white"></i></span>
+                                    <span class="icon icon-l rounded-m  shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);"><i class="bi bi-emoji-sunglasses font-24 color-white"></i></span>
                                     <h1 class="font-22 pt-3 line-height-m">OURO</h1>
                                     </div>
                                     <div class="card-bottom mx-3 mb-3">
