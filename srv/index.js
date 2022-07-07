@@ -23,13 +23,13 @@ var inicio_timer;
 var fim_timer;
 var total_time;
 function loading(){
-  inicio_timer = performance.now();
-  const P = ['🌕', '🌖', '🌗', '🌘', '🌑', '🌒', '🌓', '🌔'];
-  let x = 0;
-  loader = setInterval(() => {
-    process.stdout.write(`\r${P[x++]} `);
-    x %= P.length;
-  }, 150);
+  // inicio_timer = performance.now();
+  // const P = ['🌕', '🌖', '🌗', '🌘', '🌑', '🌒', '🌓', '🌔'];
+  // let x = 0;
+  // loader = setInterval(() => {
+  //   process.stdout.write(`\r${P[x++]} `);
+  //   x %= P.length;
+  // }, 150);
 }
 
 
@@ -41,11 +41,11 @@ function stopLoading(){
   // process.stdout.clearLine();
   // process.stdout.cursorTo(0);
 
-  clearInterval(loader);
-  fim_timer = performance.now();
-  var calcula_tempo = (fim_timer - inicio_timer)/1000;
+  // clearInterval(loader);
+  // fim_timer = performance.now();
+  // var calcula_tempo = (fim_timer - inicio_timer)/1000;
   
-  total_time = '⏰ '+calcula_tempo.toFixed(2)+'s'
+  // total_time = '⏰ '+calcula_tempo.toFixed(2)+'s'
 }
 
 
