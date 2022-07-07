@@ -307,7 +307,7 @@ $(document).on('click', '.div_mov_financeira_new', function(e){
     })
     .done(function(msg){
         console.log(msg)
- 
+        $('.valores_processos').text('Valores do Processo');
         $('.valores_movimentacao').html('')
         let dataMovimentacao = new Date(msg['infos'].DataConvertido)
  
@@ -371,6 +371,7 @@ $(document).on('click', '.div_mov_financeira_new', function(e){
                     var valores_new = `<a href="#" class="d-flex py-1">
                                         <div class="align-self-center ps-1">
                                         <strong class="pt-1 mb-n1 color-red-dark">${element.Pessoa.substring(0,20)}</strong>
+                                        <p class="mb-0 font-11 opacity-50">${element.tipoTransacao}</p>
                                         </div>
                                         <div class="align-self-center ms-auto text-end">
                                         <strong class="pt-1 mb-n1 color-red-dark">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
@@ -384,6 +385,7 @@ $(document).on('click', '.div_mov_financeira_new', function(e){
                     var valores_new = `<a href="#" class="d-flex py-1">
                                         <div class="align-self-center ps-1">
                                         <strong class="pt-1 mb-n1 color-green-dark">${element.Pessoa.substring(0,20)}</strong>
+                                        <p class="mb-0 font-11 opacity-50">${element.tipoTransacao}</p>
                                         </div>
                                         <div class="align-self-center ms-auto text-end">
                                         <strong class="pt-1 mb-n1 color-green-dark">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Moeda})}</strong>
@@ -442,6 +444,7 @@ $(document).on('click', '.div_mov_financeira', function(e){
         }
     })
     .done(function(msg){
+        $('.valores_movimentacao_processo').html('')
  
 
         let dataMovimentacao = new Date(msg['infos'].Data_Conciliacao_Convertido)
@@ -459,6 +462,7 @@ $(document).on('click', '.div_mov_financeira', function(e){
         
 
         $('.valores_movimentacao').html('')
+        $('.valores_processos').text('');
         profit = [];
         profit['total'] = [];
         msg['faturas'].forEach(element => {
@@ -542,7 +546,8 @@ $(document).on('click', '.btn_metas_mensal', function(e){
     var mes_nomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
     $('.corpo_metas_mensal').html('');
-
+    
+    
     msg.forEach(element => {
     
         if(modal == 'impo_aerea'){
