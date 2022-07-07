@@ -39,9 +39,9 @@
     </div>
     </div>
     
-    <div class="row text-center">
+<div class="row text-center">
         <div class="col-6 mb-n2">
-        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-information" class="card card-style me-0" style="height:180px">
+        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-information" class="card card-style me-0 metas_diaria_semanal" style="height:180px">
         <div class="card-center">
         <span class="icon icon-xl rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-clock font-24 color-white"></i></span>
         <h1 class="font-22 pt-3">Diária e<br>Semanal</h1>
@@ -52,7 +52,7 @@
         </a>
         </div>
         <div class="col-6 mb-n2">
-        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-request" class="card card-style ms-0" style="height:180px">
+        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-metas_mensal_selecao_modal" class="card card-style ms-0" style="height:180px">
         <div class="card-center">
         <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-clock font-24 color-white"></i></span>
         <h1 class="font-22 pt-3">Mensal</h1>
@@ -62,13 +62,26 @@
         </div>
         </a>
         </div>
-       
-    
-    
-        </div>
+
+</div>
+<div class="row text-center">
+    <div class="col-6 mb-n2">
+    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-metas_financeiro_selecao" class="card card-style me-0" style="height:180px">
+    <div class="card-center">
+    <span class="icon icon-xl rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-clock font-24 color-white"></i></span>
+    <h1 class="font-22 pt-3">Financeiro</h1>
+    </div>
+    <div class="card-bottom">
+    <!-- <p class="font-11 mb-0 opacity-70">Convert Currency</p> -->
+    </div>
+    </a>
+    </div>
+ 
+
+</div>
 
 
-    <div id="menu-information" class="offcanvas offcanvas-start" style="visibility:visible; display:block;padding-top: 25px;">
+ <div id="menu-information" class="offcanvas offcanvas-start" style="visibility:visible; display:block;padding-top: 25px;">
         <div style="width:100vw;margin-bottom: 100px !important;">
         
         <div class="pt-3">
@@ -225,7 +238,7 @@
         </div>
 
 
-        <div id="menu-request" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m" style="display:block;margin-bottom: 73px;">
+<div id="menu-metas_mensal_selecao_modal" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m" style="display:block;margin-bottom: 73px;">
 
             <div class="menu-size" style="min-height:290px;">
             <div class="d-flex mx-3 mt-3 py-1">
@@ -242,7 +255,7 @@
             </div>
             <div class="row text-center">
                 <div class="col-6 mb-n2">
-                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" class="card card-style me-0" style="height:170px">
+                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="impo_aerea" class="card card-style me-0 btn_metas_mensal" style="height:170px">
                 <div class="card-top mt-4">
                 <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
                 <h1 class="font-22 pt-3 line-height-m">Imp. Aérea</h1>
@@ -257,7 +270,7 @@
                 </a>
                 </div>
                 <div class="col-6 mb-n2">
-                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" class="card card-style ms-0" style="height:170px">
+                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="impo_maritima" class="card card-style ms-0 btn_metas_mensal" style="height:170px">
                 <div class="card-top mt-4">
                 <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
                 <h1 class="font-22 pt-3">Imp. Marítima</h1>
@@ -275,7 +288,7 @@
           </div>
           <div class="row text-center">
             <div class="col-6 mb-n2">
-            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" class="card card-style me-0" style="height:170px">
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="expo_aerea" class="card card-style me-0 btn_metas_mensal" style="height:170px">
             <div class="card-top mt-4">
             <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
             <h1 class="font-22 pt-3 line-height-m">Exp. Aérea</h1>
@@ -290,7 +303,7 @@
             </a>
             </div>
             <div class="col-6 mb-n2">
-            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" class="card card-style ms-0" style="height:170px">
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-mensal" data-filial="itj" data-tipo="expo_maritima" class="card card-style ms-0 btn_metas_mensal" style="height:170px">
             <div class="card-top mt-4">
             <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
             <h1 class="font-22 pt-3">Exp. Marítima</h1>
@@ -309,32 +322,141 @@
             </div>
             </div>
 
+<div id="menu-metas_financeiro_selecao" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m" style="display:block;margin-bottom: 73px;">
 
-            <div id="metas-mensal" class="offcanvas offcanvas-start" style="visibility:visible; display:block;padding-top: 25px;">
-                <div style="width:100vw;margin-bottom: 100px !important;">
-                
-                <div class="pt-3">
-                <div class="page-title d-flex" style="padding: 5px 15px 0px;">
+                <div class="menu-size" style="min-height:290px;">
+                <div class="d-flex mx-3 mt-3 py-1">
+              
                 <div class="align-self-center">
-                <a href="#" data-bs-dismiss="offcanvas" class="me-3 ms-0 icon icon-xxs bg-theme rounded-s shadow-m">
-                <i class="bi bi-chevron-left color-theme font-14"></i>
+                <h3 class="mb-n1">Meta Financeira</h3>
+                <p class="mb-0 font-11">Selecione a meta</p>
+                </div>
+                <div class="align-self-center ms-auto">
+                <a href="#" class="ps-4 shadow-0 me-n2" data-bs-dismiss="offcanvas">
+                <i class="bi bi-x color-red-dark font-26 line-height-xl"></i>
                 </a>
                 </div>
-                <div class="align-self-center me-auto">
-                <h1 class="color-theme mb-0 font-18">Voltar</h1>
                 </div>
-              
-                </div>
-                </div>
-                <center><h3>Metas Diário</h3></center>
-                <div class="content mt-0">
-           
                 <div class="row text-center">
+                    <div class="col-6 mb-n2">
+                    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-meta="1" data-filial="itj" data-tipo="impo_aerea" class="card card-style me-0 btn_metas_anual_financeiro" style="height:170px">
+                    <div class="card-top mt-4">
+                    <span class="icon icon-l rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%)"><i class="bi bi-truck font-24 color-white"></i></span>
+                    <h1 class="font-22 pt-3 line-height-m">BRONZE</h1>
+                    </div>
+                    <div class="card-bottom mx-3 mb-3">
+                    <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
+                    <div style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%)" class="progress-bar text-start ps-3 font-600 font-10 barra_bronze" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+                    84%
+                    </div>
+                    </div>
+                    </div>
+                    </a>
+                    </div>
+                    <div class="col-6 mb-n2">
+                    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-meta="2" data-filial="itj"  class="card card-style ms-0 btn_metas_anual_financeiro" style="height:170px">
+                    <div class="card-top mt-4">
+                    <span class="icon icon-xl rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%);"><i class="bi bi-house font-24 color-white"></i></span>
+                    <h1 class="font-22 pt-3">PRATA</h1>
+                    </div>
+                    <div class="card-bottom mx-3 mb-3">
+                    <div class="progress rounded-xs bg-theme border border-blue-light" style="height:20px">
+                    <div style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%);" class="progress-bar text-start ps-3 font-600 font-10 barra_prata" role="progressbar" style="width: 64%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+                    64%
+                    </div>
+                    </div>
+                    </div>
+                    </a>
+                    </div>
+                    
+              </div>
+              <div class="row text-center">
+                <div class="col-6 mb-n2">
+                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-meta="3" data-filial="itj" class="card card-style me-0 btn_metas_anual_financeiro" style="height:170px">
+                <div class="card-top mt-4">
+                <span class="icon icon-l rounded-m  shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);"><i class="bi bi-truck font-24 color-white"></i></span>
+                <h1 class="font-22 pt-3 line-height-m">OURO</h1>
+                </div>
+                <div class="card-bottom mx-3 mb-3">
+                <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
+                <div style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);" class="progress-bar  text-start ps-3 font-600 font-10 barra_ouro" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+                84%
+                </div>
+                </div>
+                </div>
+                </a>
+                </div>
+                <div class="col-6 mb-n2">
+                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#metas-anual_financeiro" data-filial="itj"class="card card-style ms-0 btn_metas_anual_financeiro_hoje" style="height:170px">
+                <div class="card-top mt-4">
+                <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
+                <h1 class="font-22 pt-3">HOJE</h1>
+                </div>
+                </a>
+                </div>
+                
+          </div>
+                </div>
+                </div>
+
+ <div id="metas-semanal" class="offcanvas offcanvas-start" style="visibility:visible; display:block;padding-top: 25px;">
+                    <div style="width:100vw;margin-bottom: 100px !important;">
+                    
+                    <div class="pt-3">
+                    <div class="page-title d-flex" style="padding: 5px 15px 0px;">
+                    <div class="align-self-center">
+                    <a href="#" data-bs-dismiss="offcanvas" class="me-3 ms-0 icon icon-xxs bg-theme rounded-s shadow-m">
+                    <i class="bi bi-chevron-left color-theme font-14"></i>
+                    </a>
+                    </div>
+                    <div class="align-self-center me-auto">
+                    <h1 class="color-theme mb-0 font-18">Voltar</h1>
+                    </div>
+                  
+                    </div>
+                    </div>
+                    <center><h3>Metas Diário</h3></center>
+                    <div class="content mt-0">
+               
+                    <div class="row text-center">
+                        <div class="col-6 mb-n2">
+                        <a href="#" class="card card-style me-0" style="height:170px">
+                        <div class="card-top mt-4">
+                        <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
+                        <h1 class="font-22 pt-3 line-height-m">Imp. Aérea</h1>
+                        </div>
+                        <div class="card-bottom mx-3 mb-3">
+                        <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
+                        <div class="progress-bar gradient-green text-start ps-3 font-600 font-10" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+                        84%
+                        </div>
+                        </div>
+                        </div>
+                        </a>
+                        </div>
+                        <div class="col-6 mb-n2">
+                        <a href="#" class="card card-style ms-0" style="height:170px">
+                        <div class="card-top mt-4">
+                        <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
+                        <h1 class="font-22 pt-3">Imp. Marítima</h1>
+                        </div>
+                        <div class="card-bottom mx-3 mb-3">
+                        <div class="progress rounded-xs bg-theme border border-blue-light" style="height:20px">
+                        <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: 64%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
+                        64%
+                        </div>
+                        </div>
+                        </div>
+                        </a>
+                        </div>
+                        
+                  </div>
+                  <div class="row text-center">
                     <div class="col-6 mb-n2">
                     <a href="#" class="card card-style me-0" style="height:170px">
                     <div class="card-top mt-4">
                     <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
-                    <h1 class="font-22 pt-3 line-height-m">Imp. Aérea</h1>
+                    <h1 class="font-22 pt-3 line-height-m">Exp. Aérea</h1>
                     </div>
                     <div class="card-bottom mx-3 mb-3">
                     <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
@@ -349,7 +471,7 @@
                     <a href="#" class="card card-style ms-0" style="height:170px">
                     <div class="card-top mt-4">
                     <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
-                    <h1 class="font-22 pt-3">Imp. Marítima</h1>
+                    <h1 class="font-22 pt-3">Exp. Marítima</h1>
                     </div>
                     <div class="card-bottom mx-3 mb-3">
                     <div class="progress rounded-xs bg-theme border border-blue-light" style="height:20px">
@@ -362,89 +484,41 @@
                     </div>
                     
               </div>
-              <div class="row text-center">
-                <div class="col-6 mb-n2">
-                <a href="#" class="card card-style me-0" style="height:170px">
-                <div class="card-top mt-4">
-                <span class="icon icon-l rounded-m gradient-green shadow-bg shadow-bg-xs"><i class="bi bi-truck font-24 color-white"></i></span>
-                <h1 class="font-22 pt-3 line-height-m">Exp. Aérea</h1>
-                </div>
-                <div class="card-bottom mx-3 mb-3">
-                <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
-                <div class="progress-bar gradient-green text-start ps-3 font-600 font-10" role="progressbar" style="width: 84%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
-                84%
-                </div>
-                </div>
-                </div>
-                </a>
-                </div>
-                <div class="col-6 mb-n2">
-                <a href="#" class="card card-style ms-0" style="height:170px">
-                <div class="card-top mt-4">
-                <span class="icon icon-xl rounded-m gradient-orange shadow-bg shadow-bg-xs"><i class="bi bi-house font-24 color-white"></i></span>
-                <h1 class="font-22 pt-3">Exp. Marítima</h1>
-                </div>
-                <div class="card-bottom mx-3 mb-3">
-                <div class="progress rounded-xs bg-theme border border-blue-light" style="height:20px">
-                <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: 64%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
-                64%
-                </div>
-                </div>
-                </div>
-                </a>
-                </div>
-                
-          </div>
-          <center><h3>Metas Semanal</h3></center> 
-              <div class="card card-style">
-                <div class="content">
-                <div class="d-flex">
-                <div>
-                <h6 class="opacity-30 mb-n1">Importação</h6>
-                <h3 class="mb-2">Aérea</h3>
-                </div>
-                <div class="align-self-end ms-auto">
-                <h3 class="mb-2">07/08</h3>
-                </div>
-                </div>
-                <div class="progress rounded-xs bg-theme border border-blue-light" style="height:35px">
-                <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
-                78%
-                </div>
-                </div>
-                <div class="d-flex mt-3">
-                <div>
-                <h6 class="opacity-30 mb-n1">Importação</h6>
-                <h3 class="mb-2">Marítima</h3>
-                </div>
-                <div class="align-self-end ms-auto">
-                <h3 class="mb-2">07/08</h3>
-                </div>
-                </div>
-                <div class="progress rounded-xs bg-theme border border-green-light" style="height:35px">
-                <div class="progress-bar gradient-green text-start ps-3 font-600 font-10" role="progressbar" style="width: 85%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
-                85%
-                </div>
-                </div>
-                <div class="d-flex mt-3">
-                <div>
-                <h6 class="opacity-30 mb-n1">Exportação</h6>
-                <h3 class="mb-2">Aérea</h3>
-                </div>
-                <div class="align-self-end ms-auto">
-                <h3 class="mb-2">07/08</h3>
-                </div>
-                </div>
-                <div class="progress rounded-xs bg-theme border border-yellow-light" style="height:35px">
-                <div class="progress-bar gradient-yellow text-start ps-3 font-600 font-10" role="progressbar" style="width: 53%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                53%
-                </div>
-                </div>
-        
-                <div class="d-flex mt-3">
+              <center><h3>Metas Semanal</h3></center> 
+                  <div class="card card-style">
+                    <div class="content">
+                    <div class="d-flex">
+                    <div>
+                    <h6 class="opacity-30 mb-n1">Importação</h6>
+                    <h3 class="mb-2">Aérea</h3>
+                    </div>
+                    <div class="align-self-end ms-auto">
+                    <h3 class="mb-2">07/08</h3>
+                    </div>
+                    </div>
+                    <div class="progress rounded-xs bg-theme border border-blue-light" style="height:35px">
+                    <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+                    78%
+                    </div>
+                    </div>
+                    <div class="d-flex mt-3">
+                    <div>
+                    <h6 class="opacity-30 mb-n1">Importação</h6>
+                    <h3 class="mb-2">Marítima</h3>
+                    </div>
+                    <div class="align-self-end ms-auto">
+                    <h3 class="mb-2">07/08</h3>
+                    </div>
+                    </div>
+                    <div class="progress rounded-xs bg-theme border border-green-light" style="height:35px">
+                    <div class="progress-bar gradient-green text-start ps-3 font-600 font-10" role="progressbar" style="width: 85%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+                    85%
+                    </div>
+                    </div>
+                    <div class="d-flex mt-3">
                     <div>
                     <h6 class="opacity-30 mb-n1">Exportação</h6>
-                    <h3 class="mb-2">Marítima</h3>
+                    <h3 class="mb-2">Aérea</h3>
                     </div>
                     <div class="align-self-end ms-auto">
                     <h3 class="mb-2">07/08</h3>
@@ -455,16 +529,31 @@
                     53%
                     </div>
                     </div>
-        
-                </div>
-                </div>
-              
-         
             
+                    <div class="d-flex mt-3">
+                        <div>
+                        <h6 class="opacity-30 mb-n1">Exportação</h6>
+                        <h3 class="mb-2">Marítima</h3>
+                        </div>
+                        <div class="align-self-end ms-auto">
+                        <h3 class="mb-2">07/08</h3>
+                        </div>
+                        </div>
+                        <div class="progress rounded-xs bg-theme border border-yellow-light" style="height:35px">
+                        <div class="progress-bar gradient-yellow text-start ps-3 font-600 font-10" role="progressbar" style="width: 53%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        53%
+                        </div>
+                        </div>
+            
+                    </div>
+                    </div>
+                  
              
-                </div>
-                </div>
-                </div>
+                
+                 
+                    </div>
+                    </div>
+                    </div>
             
 
         <script>
@@ -481,4 +570,36 @@
          
             _0xebf0x75['innerHTML'] += _0xebf0x77[_0xebf0x76['getDay']()] + ', ' + _0xebf0x7b + ' de ' + _0xebf0x79[_0xebf0x78['getMonth']()] + '.';
         };
+
+var filial = 'itj';
+
+    $.ajax({
+    url : "/meta_anual_hoje",
+    type : 'GET',
+    dataType: "json",
+    data : {
+        filial: filial
+    },
+    beforeSend : function(){
+       
+        
+    }
+})
+.done(function(msg){
+  
+
+  $('.barra_prata').text(parseInt(msg[filial][0].PorcentagemMeta1)+'%')
+  $('.barra_prata').css('width', msg[filial][0].PorcentagemMeta1+'%')
+  $('.barra_bronze').text(parseInt(msg[filial][0].PorcentagemMeta2)+'%')
+  $('.barra_bronze').css('width', msg[filial][0].PorcentagemMeta2+'%')
+  $('.barra_ouro').text(parseInt(msg[filial][0].PorcentagemMeta3)+'%')
+  $('.barra_ouro').css('width', msg[filial][0].PorcentagemMeta3+'%')
+
+ 
+
+
+})
+
+
+
         </script>

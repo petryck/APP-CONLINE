@@ -9,11 +9,45 @@ import sql from 'mssql'
 const app = express()
 const server = http.Server(app);
 
-
+console.clear()
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
+
+var dbMetasMensal = {}
+var dbMetasAnualFinanceiro = {}
+
+var loader;
+var inicio_timer;
+var fim_timer;
+var total_time;
+function loading(){
+  inicio_timer = performance.now();
+  const P = ['🌕', '🌖', '🌗', '🌘', '🌑', '🌒', '🌓', '🌔'];
+  let x = 0;
+  loader = setInterval(() => {
+    process.stdout.write(`\r${P[x++]} `);
+    x %= P.length;
+  }, 150);
+}
+
+
+
+
+
+
+function stopLoading(){
+  process.stdout.clearLine();
+  process.stdout.cursorTo(0);
+
+  clearInterval(loader);
+  fim_timer = performance.now();
+  var calcula_tempo = (fim_timer - inicio_timer)/1000;
+  
+  total_time = '⏰ '+calcula_tempo.toFixed(2)+'s'
+}
+
 
 const port = 6888
 
@@ -85,10 +119,15 @@ const connStr = {
   }
 }
 
+loading()
 sql.connect(connStr).then(conn => {
   global.conn = conn
+  stopLoading()
+  console.log('🤖 CONECTADO A DB --> HEADCARGO '+ total_time)
+  PQuery();
 
 }).catch(err => console.log(err));
+
 
   var connection = mysql.createConnection({
     host: "144.22.225.253",
@@ -98,16 +137,20 @@ sql.connect(connStr).then(conn => {
     database: "SIRIUS",
     charset: "utf8mb4"
   });
-  
+
+  // loading() 
   connection.connect(function(err) {
   
   
     if(err){
-
-      console.log('ERRO AO ACESSAR DB --> MYSQL')
+      stopLoading()
+      console.log('🤖 ERRO AO ACESSAR DB --> MYSQL'+ total_time)
     
     }else{
-        console.log('CONECTADO DB --> MYSQL')
+      stopLoading()
+        console.log('🤖 CONECTADO A DB --> MYSQL'+ total_time)
+        // PQuery()
+       
     }
   
   }); 
@@ -868,11 +911,249 @@ Order by
 
 
 
+function META_GERAL_ANUAL(){
+  return new Promise((resolve,reject)=>{
+      //here our function should be implemented 
+      var sql = `SELECT * FROM vis_Metas_Financeiro_Anual_ITJ`;
+
+        global.conn.request()
+        .query(sql)
+        .then(result3 => {
+
+          mtas_geral_anual['itj'] = result3.recordset;
+
+          var sql = `SELECT * FROM vis_Metas_Financeiro_Anual_NH`;
+
+        global.conn.request()
+          .query(sql)
+          .then(result4 => {
+        
+            stopLoading()
+            mtas_geral_anual['nh'] = result4.recordset;
+            
+            console.log('✔️  METAS GERAL ANUAL! '+ total_time)
+            resolve();
+          
+            
+          })
+
+        })
+  });
+}
+
+function METAS_MENSAL(){
+  return new Promise((resolve,reject)=>{
+
+    var sql = `SELECT * FROM vis_Metas_Mensal_ITJ`;
+
+    global.conn.request()
+    .query(sql)
+    .then(result3 => {
+  
+      var teste = result3.recordset;
+      dbMetasMensal['itj'] = teste
+  
+      var sql = `SELECT * FROM vis_Metas_Mensal_ITJ`;
+          global.conn.request()
+          .query(sql)
+          .then(result4 => {
+            stopLoading()
+            var teste = result4.recordset;
+            dbMetasMensal['nh'] = teste
+            
+            console.log('✔️  METAS MENSAIS! '+total_time)
+            resolve();
+            
+          })
+      
+    })
+  });
+}
+
+
+function METAS_ANUAIS_FINANCEIRO(){
+  return new Promise((resolve,reject)=>{
+
+    var sql = `SELECT * FROM vis_Metas_Financeiro_Mensal_ITJ`;
+
+    global.conn.request()
+    .query(sql)
+    .then(result3 => {
+  
+      var teste = result3.recordset;
+      dbMetasAnualFinanceiro['itj'] = teste
+  
+      var sql = `SELECT * FROM vis_Metas_Financeiro_Mensal_ITJ`;
+          global.conn.request()
+          .query(sql)
+          .then(result4 => {
+            stopLoading()
+            var teste = result4.recordset;
+            dbMetasAnualFinanceiro['nh'] = teste
+            
+            console.log('✔️  METAS ANUAIS FINANCEIRO! '+ total_time)
+            resolve();
+            
+          })
+      
+    })
+  });
+}
+
+
+// function PQuery(){
+//   setTimeout(() => {
+//     metas_geral_anual('itj')
+//     // metas_mensal('nh')
+//   }, 1000);
+
+//   setTimeout(() => {
+//     metas_mensal('itj')
+//     // metas_mensal('nh')
+//   }, 5000);
+
+//   setTimeout(() => {
+//     metas_anual_financeiro('itj')
+//     // metas_mensal('nh')
+//   }, 10000);
+
+
+// }
 
 
 
 
 
-server.listen(port, function () {
-    console.log(`Servidor Carregado http://localhost:${server.address().port}`);
-});
+
+app.get('/meta_anual_financeira', (req, res) => {
+
+  var filial = req.query.filial
+
+
+  res.json(dbMetasAnualFinanceiro[filial])
+  
+  })
+
+app.get('/meta_mensal', (req, res) => {
+
+
+var filial = req.query.filial
+
+res.json(dbMetasMensal[filial])
+
+})
+var mtas_geral_anual = {};
+
+
+// function metas_geral_anual(filial){
+
+ 
+
+//     var sql = `SELECT * FROM vis_Metas_Financeiro_Anual_ITJ`;
+
+//   global.conn.request()
+//   .query(sql)
+//   .then(result3 => {
+
+
+//     mtas_geral_anual['itj'] = result3.recordset;
+
+
+//     var sql = `SELECT * FROM vis_Metas_Financeiro_Anual_NH`;
+
+//     global.conn.request()
+//     .query(sql)
+//     .then(result4 => {
+  
+  
+//       mtas_geral_anual['nh'] = result4.recordset;
+//       stopLoading()
+//       console.log('metas geral anual carregada')
+      
+//     })
+
+
+
+
+    
+//   })
+// }
+
+
+app.get('/meta_anual_hoje', (req, res) => {
+
+
+  res.json(mtas_geral_anual)
+
+  
+  })
+
+  app.get('/Metas_diario', (req, res) => {
+
+    // const d = new Date();
+    // var day = DataHoje.getDay();
+    // console.log(day)
+
+    var d = new Date(),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+        if(req.query.filial == 'itj'){
+
+          global.conn.request()
+          .query(`SELECT * FROM vis_Metas_Diaria_ITJ WHERE Dia_Abertura = ${day} AND Mes_Abertura = ${month} AND Ano_Abertura = ${year}`)
+          .then(result => {
+      
+            res.json(result.recordset[0])
+          })
+          .catch(err => {
+            console.log(err)
+            return err;
+          });
+
+        }else if(req.query.filial == 'nh'){
+
+          global.conn.request()
+          .query(`SELECT * FROM vis_Metas_Diaria_NH WHERE Dia_Abertura = ${day} AND Mes_Abertura = ${month} AND Ano_Abertura = ${year}`)
+          .then(result => {
+      
+            res.json(result.recordset[0])
+          })
+          .catch(err => {
+            console.log(err)
+            return err;
+          });
+        }
+   
+
+  
+
+  })
+ 
+
+  async function PQuery(){
+   
+    console.log("💣 CARREGANDO INFORMAÇÕES, AGUARDE!");
+    loading()
+    await META_GERAL_ANUAL();
+    loading()
+    await METAS_MENSAL();
+    loading()
+    await METAS_ANUAIS_FINANCEIRO();
+    
+    server.listen(port, function () {
+      
+      console.log(`🚀 SERVIDOR CARREGADO! \n📍 http://localhost:${server.address().port}`);
+      stopLoading()
+    });
+   
+  }
+  
+
+

@@ -20,10 +20,10 @@ if(infos_users_app['adm'] == 1){
 
 
 
+
+
+
 function consultas_adm(){
-
-
-
 
 }
 
@@ -463,6 +463,308 @@ $(document).on('click', '.div_mov_financeira', function(e){
 
 
 })
+
+$(document).on('click', '.btn_metas_mensal', function(e){
+
+    var modal = $(this).attr('data-tipo');
+    var filial = $(this).attr('data-filial');
+    
+    
+   $.ajax({
+    url : "/meta_mensal",
+    type : 'GET',
+    dataType: "json",
+    data : {
+        filial: filial,
+        modal : modal
+    },
+    beforeSend : function(){
+       
+        
+    }
+})
+.done(function(msg){
+    console.log(msg)
+    var mes_nomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+
+    $('.corpo_metas_mensal').html('');
+
+    msg.forEach(element => {
+    
+        if(modal == 'impo_aerea'){
+            $('.tipo_meta_mensal').text('Importação Aérea')
+            var valor = element.IA
+            var valor_meta = element.IA_Meta
+            var porcentagem = element.Porcentagem_IA
+        }else if(modal == 'expo_aerea'){
+            $('.tipo_meta_mensal').text('Exportação Aérea')
+            var valor = element.EA
+            var valor_meta = element.EA_Meta
+            var porcentagem = element.Porcentagem_EA
+        }else if(modal == 'impo_maritima'){
+            $('.tipo_meta_mensal').text('Importação Marítima')
+            var valor = element.IM
+            var valor_meta = element.IM_Meta
+            var porcentagem = element.Porcentagem_IM
+        }else if(modal == 'expo_maritima'){
+            $('.tipo_meta_mensal').text('Exportação Marítima')
+            var valor = element.IM
+            var valor_meta = element.IM_Meta
+            var porcentagem = element.Porcentagem_IM
+        }
+        
+
+        var mes = `<div class="d-flex">
+        <div>
+        <br>
+        <h6 class="opacity-30 mb-n1"></h6>
+        <h3 class="mb-2">${mes_nomes[element.Mes_Abertura-1]}</h3>
+        </div>
+        <div class="align-self-end ms-auto">
+        <h3 class="mb-2">${valor}/${valor_meta}</h3>
+        </div>
+        </div>
+        <div class="progress rounded-xs bg-theme border border-blue-light" style="height:35px">
+        <div class="progress-bar gradient-blue text-start ps-3 font-600 font-10" role="progressbar" style="width: ${porcentagem}%" aria-valuenow="${porcentagem}" aria-valuemin="0" aria-valuemax="100">
+        ${porcentagem}%
+        </div>
+        </div>`;
+
+        $('.corpo_metas_mensal').append(mes);
+
+        });
+
+
+})
+
+
+
+})
+
+
+// var filial = 'itj';
+
+//     $.ajax({
+//     url : "/meta_anual_hoje",
+//     type : 'GET',
+//     dataType: "json",
+//     data : {
+//         filial: filial
+//     },
+//     beforeSend : function(){
+       
+        
+//     }
+// })
+// .done(function(msg){
+
+//     console.log(msg)
+
+  
+    
+//   $('.barra_prata').text(parseInt(msg[0].PorcentagemMeta1)+'%')
+//   $('.barra_prata').css('width', msg[0].PorcentagemMeta1+'%')
+//   $('.barra_bronze').text(parseInt(msg[0].PorcentagemMeta2)+'%')
+//   $('.barra_bronze').css('width', msg[0].PorcentagemMeta2+'%')
+//   $('.barra_ouro').text(parseInt(msg[0].PorcentagemMeta3)+'%')
+//   $('.barra_ouro').css('width', msg[0].PorcentagemMeta3+'%')
+
+ 
+
+
+// })
+
+
+$(document).on('click', '.metas_diaria_semanal', function(e){
+
+    if(infos_users_app.filial == 1){
+       var filial = 'itj'; 
+    }else if(infos_users_app.filial == 2){
+        var filial = 'nh'; 
+    }
+
+    $.ajax({
+    url : "/Metas_diario",
+    type : 'GET',
+    dataType: "json",
+    data : {
+        filial: filial
+    },
+    beforeSend : function(){
+       
+        
+    }
+})
+.done(function(msg){
+
+    console.log(msg)
+
+  
+    
+
+
+ 
+
+
+})
+
+
+})   
+$(document).on('click', '.btn_metas_anual_financeiro_hoje', function(e){
+
+    var filial = $(this).attr('data-filial');
+
+    $.ajax({
+    url : "/meta_anual_hoje",
+    type : 'GET',
+    dataType: "json",
+    data : {
+        filial: filial
+    },
+    beforeSend : function(){
+       
+        
+    }
+})
+.done(function(msg){
+    console.log(msg)
+
+    $('.corpo_metas_anual_financeiro').html('');
+
+    $('.tipo_meta_anual_financeiro').text('Resumo de metas até hoje')
+var corpo = `<div class="row text-center">
+                                    <div class="col-6 mb-n2">
+                                    <a href="#"  data-tipo="impo_aerea" class="card card-style me-0 " style="height:170px">
+                                    <div class="card-top mt-4">
+                                    <span class="icon icon-l rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%);"><i class="bi bi-truck font-24 color-white"></i></span>
+                                    <h1 class="font-22 pt-3 line-height-m">BRONZE</h1>
+                                    </div>
+                                    <div class="card-bottom mx-3 mb-3">
+                                    <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
+                                    <div style="background:linear-gradient(135deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%); width: ${parseInt(msg[filial][0].PorcentagemMeta1Hoje)}%;" class="progress-bar text-start ps-3 font-600 font-10 " role="progressbar" aria-valuenow="${parseInt(msg[filial][0].PorcentagemMeta1Hoje)}" aria-valuemin="0" aria-valuemax="100">
+                                    ${parseInt(msg[filial][0].PorcentagemMeta1Hoje)}%
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </a>
+                                    </div>
+                                    <div class="col-6 mb-n2">
+                                    <a href="#"  data-meta="2"  class="card card-style ms-0" style="height:170px">
+                                    <div class="card-top mt-4">
+                                    <span class="icon icon-xl rounded-m shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%);"><i class="bi bi-house font-24 color-white"></i></span>
+                                    <h1 class="font-22 pt-3">PRATA</h1>
+                                    </div>
+                                    <div class="card-bottom mx-3 mb-3">
+                                    <div class="progress rounded-xs bg-theme border border-blue-light" style="height:20px">
+                                    <div style="background:linear-gradient(135deg, #e6e6e6 0%,#d9d9d9 50%,#cbcbcb 51%,#dddddd 100%); width: ${parseInt(msg[filial][0].PorcentagemMeta2Hoje)}%;" class="progress-bar text-start ps-3 font-600 font-10" role="progressbar" aria-valuenow="${parseInt(msg[filial][0].PorcentagemMeta2Hoje)}" aria-valuemin="0" aria-valuemax="100">
+                                    ${parseInt(msg[filial][0].PorcentagemMeta2Hoje)}%
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </a>
+                                    </div>
+                </div>
+                <div class="row text-center">
+                                    <div class="col-6 mb-n2">
+                                    <a href="#" class="card card-style me-0" style="height:170px">
+                                    <div class="card-top mt-4">
+                                    <span class="icon icon-l rounded-m  shadow-bg shadow-bg-xs" style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);"><i class="bi bi-truck font-24 color-white"></i></span>
+                                    <h1 class="font-22 pt-3 line-height-m">OURO</h1>
+                                    </div>
+                                    <div class="card-bottom mx-3 mb-3">
+                                    <div class="progress rounded-xs bg-theme border border-green-light" style="height:20px">
+                                    <div style="background:linear-gradient(135deg, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); width: ${parseInt(msg[filial][0].PorcentagemMeta3Hoje)}%;" class="progress-bar  text-start ps-3 font-600 font-10 barra_ouro" role="progressbar" style="width: 84%" aria-valuenow="${parseInt(msg[filial][0].PorcentagemMeta3Hoje)}" aria-valuemin="0" aria-valuemax="100">
+                                    ${parseInt(msg[filial][0].PorcentagemMeta3Hoje)}%
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </a>
+                                    </div>
+                </div>`;
+ 
+
+                $('.corpo_metas_anual_financeiro').html(corpo);
+})
+  
+
+})
+
+
+$(document).on('click', '.btn_metas_anual_financeiro', function(e){
+
+    var filial = $(this).attr('data-filial');
+    var meta = $(this).attr('data-meta');
+    
+    
+   $.ajax({
+    url : "/meta_anual_financeira",
+    type : 'GET',
+    dataType: "json",
+    data : {
+        filial: filial
+    },
+    beforeSend : function(){
+       
+        
+    }
+})
+.done(function(msg){
+
+    var mes_nomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+
+    $('.corpo_metas_anual_financeiro').html('');
+
+    msg.forEach(element => {
+    
+        if(meta == 1){
+            $('.tipo_meta_anual_financeiro').text('Meta Bronze')
+            var Porcentagem = element.PorcentagemMeta1
+            var cor = 'bronze'
+        }else if(meta == 2){
+            $('.tipo_meta_anual_financeiro').text('Meta Prata')
+            var Porcentagem = element.PorcentagemMeta2
+            var cor = 'prata'
+        }else if(meta == 3){
+            $('.tipo_meta_anual_financeiro').text('Meta Ouro')
+            var Porcentagem = element.PorcentagemMeta3
+            var cor = 'ouro'
+        }else{
+            var cor = 'gradient-blue' 
+        }
+        
+
+        var mes = `<div class="d-flex">
+        <div>
+        <br>
+        <h6 class="opacity-30 mb-n1"></h6>
+        <h3 class="mb-2">${mes_nomes[element.Mes-1]}</h3>
+        </div>
+        <div class="align-self-end ms-auto">
+       
+        </div>
+        </div>
+        <div class="progress rounded-xs bg-theme border border-blue-light" style="height:35px">
+        <div class="progress-bar ${cor} text-start ps-3 font-600 font-10" role="progressbar" style="width: ${Porcentagem}%" aria-valuenow="${Porcentagem}" aria-valuemin="0" aria-valuemax="100">
+        ${Porcentagem}%
+        </div>
+        </div>`;
+
+        $('.corpo_metas_anual_financeiro').append(mes);
+
+        });
+
+
+})
+
+
+
+})
+
+
+
+
+
+
 $(document).on('click', '.div_propostas', function(e){
 
     var id = $(this).attr('id')
