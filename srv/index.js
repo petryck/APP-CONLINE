@@ -46,6 +46,7 @@ function stopLoading(){
   // var calcula_tempo = (fim_timer - inicio_timer)/1000;
   
   // total_time = '⏰ '+calcula_tempo.toFixed(2)+'s'
+  total_time = '⏰'
 }
 
 
@@ -106,16 +107,19 @@ const connStr = {
   user: 'hc_conline_consulta',
   password: '3C23D35C-84F4-4205-80A2-D59D58A81BEF',
   database: 'headcargo_conline',
+  requestTimeout: 130000,
   port:9322,
   server: 'CONLINE.SQL.HEADCARGO.COM.BR',
   pool: {
     max: 99999,
     min: 0,
-    idleTimeoutMillis: 90000
+    idleTimeoutMillis: 130000
   },
   options: {
     encrypt: true, // for azure
-    trustServerCertificate: true // change to true for local dev / self-signed certs
+    trustServerCertificate: true, // change to true for local dev / self-signed certs
+    enableArithAbort: true,
+    idleTimeoutMillis: 130000
   }
 }
 
