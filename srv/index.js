@@ -1192,7 +1192,20 @@ app.get('/meta_anual_hoje', (req, res) => {
   
 
   })
+
+  setInterval(() => {
+    PQuery_timer();
+  }, 1800000);
  
+  async function PQuery_timer(){
+   
+    console.log("💣 CARREGANDO INFORMAÇÕES, AGUARDE!");
+    await META_GERAL_ANUAL();
+    await METAS_MENSAL();
+    await METAS_ANUAIS_FINANCEIRO();
+    
+   
+  }
 
   async function PQuery(){
    
