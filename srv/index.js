@@ -38,8 +38,8 @@ function loading(){
 
 
 function stopLoading(){
-  process.stdout.clearLine();
-  process.stdout.cursorTo(0);
+  // process.stdout.clearLine();
+  // process.stdout.cursorTo(0);
 
   clearInterval(loader);
   fim_timer = performance.now();
