@@ -1269,13 +1269,15 @@ app.get('/meta_anual_hoje', (req, res) => {
     loading()
     await METAS_ANUAIS_FINANCEIRO();
     
-    server.listen(port, function () {
-      
-      console.log(`🚀 SERVIDOR CARREGADO! \n📍 http://localhost:${server.address().port}`);
-      stopLoading()
-    });
+    
    
   }
+
+  server.listen(port, function () {
+      
+    console.log(`🚀 SERVIDOR CARREGADO! \n📍 http://localhost:${server.address().port}`);
+    stopLoading()
+  });
   
 
 

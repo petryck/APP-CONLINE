@@ -1,5 +1,4 @@
 
-
 if(!localStorage.getItem('info_usuario_sirius_os')){
     window.location.href = "/login";
 }
@@ -1094,6 +1093,10 @@ setInterval(() => {
     if($('.ultima_mov_financeira').length > 0){
         atualizar_new_mov_financeira()
     }
+
+    if($('.ultima_mov_financeira_historico').length > 0){
+        atualizar_new_mov_financeira_historico()
+    }
     
 }, 5000);
 
@@ -1163,7 +1166,88 @@ var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdOferta_Frete}" da
    
 }
 
+function atualizar_new_mov_financeira_historico(ultimoid){
 
+    $.ajax({
+        url : "/ultimas_mov_financeiras",
+        type : 'GET',
+        beforeSend : function(){
+ 
+        }
+    })
+    .done(function(msg){
+        $('.ultima_mov_financeira_historico').html('')
+            msg.forEach(element => {
+
+                let dataMovimentacao = new Date(element.Data_Conciliacao_Convertido)
+          
+                dataMovimentacao.setDate(dataMovimentacao.getDate() + 1);
+                dataMovimentacao = dataMovimentacao.toLocaleDateString("pt-US") 
+
+
+   
+
+         
+if(element.Natureza == 1){
+        var icon = '<i class="has-bg gradient-green color-white rounded-xs bi bi-arrow-down"></i>';
+        var button_color = 'color-green-dark'
+
+        $('.icon_tipo_movimentacao').html(icon)
+    }else{
+        var button_color = 'color-red-dark'
+        var icon = '<i class="has-bg gradient-red color-white rounded-xs bi bi-arrow-up"></i>';
+
+        $('.icon_tipo_movimentacao').html(icon)
+    }
+
+var defin_list =  `<a href="#" data-bs-toggle="offcanvas" class="list-group-item div_mov_financeira" id="${element.IdMovimentacao_Financeira}" data-bs-target="#menu-activity-financeiro">
+    ${icon}
+    
+    <div>
+    <strong>
+    ${element.Referencia} 
+    <em style="right: -3px;top: 5px;font-size: 7px;position: relative;" class="badge bg-orange-light color-white ">Acordo</em>
+    </strong>
+    <span>${element.Pessoa.substring(0,20)}</span></div>
+    <span class="badge bg-transparent ${button_color} text-end font-15">
+    ${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Sigla})}<br>
+    <em class="fst-normal font-12 opacity-30">${dataMovimentacao}</em>
+    </span>
+    </a>`;
+    
+
+// var propostas = `<a data-bs-toggle="offcanvas" id="${element.IdMovimentacao_Financeira}" data-bs-target="#menu-activity-financeiro" href="#" class="d-flex pb-3 div_mov_financeira">
+//     <div class="align-self-center">
+//     ${icon}
+//     </div>
+//     <div class="align-self-center ps-1">
+//         <h5 class="pt-1 mb-n1">${element.Pessoa.substring(0,20)}</h5>
+//         <p class="mb-0 font-11 opacity-50">${element.Referencia}</p>
+//     </div>
+//     <div class="align-self-center ms-auto text-end">
+//         <h4 class="pt-1 mb-n1 ${button_color}">${element.Valor_Original.toLocaleString('pt-br',{style: 'currency', currency: element.Sigla})}</h4>
+//         <p class="mb-0 font-12 opacity-50">${dataMovimentacao}</p>
+//     </div>
+//     </a>`;
+
+    
+
+
+    $('.ultima_mov_financeira_historico').append(defin_list)
+  
+});      
+
+
+        
+    })
+    .fail(function(jqXHR, textStatus, msg){
+        
+    });
+
+    
+
+   
+}
 
 function atualizar_new_mov_financeira(ultimoid){
 
